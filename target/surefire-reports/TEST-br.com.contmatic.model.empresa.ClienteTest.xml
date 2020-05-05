@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="25" failures="0" name="br.com.contmatic.model.empresa.ClienteTest" time="0.011" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.8.0_241\jre\bin"/>
+    <property name="java.vm.version" value="25.241-b07"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="maven.multiModuleProjectDirectory" value="C:\Users\jessica.souza\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\empresa"/>
+    <property name="java.vendor.url" value="http://java.oracle.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.script" value=""/>
+    <property name="user.country" value="BR"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="C:\Users\jessica.souza\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\empresa"/>
+    <property name="java.runtime.version" value="1.8.0_241-b07"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.8.0_241\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="C:\Users\JESSIC~1.SOU\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="classworlds.conf" value="C:\Users\jessica.souza\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\.metadata\.plugins\org.eclipse.m2e.launching\launches\m2conf1402413645308842326.tmp"/>
+    <property name="jansi.force" value="true"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_241\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:/Program Files/Java/jre1.8.0_241/bin/server;C:/Program Files/Java/jre1.8.0_241/bin;C:/Program Files/Java/jre1.8.0_241/lib/amd64;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Users\jessica.souza\AppData\Local\Microsoft\WindowsApps;;C:\Users\jessica.souza\Downloads\sts-4.5.1.RELEASE;;."/>
+    <property name="jansi.passthrough" value="true"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="52.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="10.0"/>
+    <property name="user.home" value="C:\Users\jessica.souza"/>
+    <property name="user.timezone" value="America/Sao_Paulo"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="user.name" value="jessica.souza"/>
+    <property name="java.class.path" value="C:\Users\jessica.souza\Downloads\sts-4.5.1.RELEASE\plugins\org.eclipse.m2e.maven.runtime_1.15.0.20200120-1352\jars\plexus-classworlds-2.6.0.jar"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.8.0_241\jre"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher -B install -Dstyle.color=always"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="user.language" value="pt"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.8.0_241"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.8.0_241\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.8.0_241\jre\lib\resources.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\rt.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\jce.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.8.0_241\jre\lib\jfr.jar;C:\Program Files\Java\jdk1.8.0_241\jre\classes"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="maven.home" value="C:\Users\jessica.souza\Documents\workspace-spring-tool-suite-4-4.5.1.RELEASE\empresa\EMBEDDED"/>
+    <property name="style.color" value="always"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_if_tostring_contains_cpf" time="0.006"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_the_same_hashcode_class_empresa" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_nome_not_null" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_cpf_not_null" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_wrong_input_cpf" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_equals_with_differents_cliente" time="0.001"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_when_hashcode_compare_with_a_null_cpf" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_differents_hashcode_class_empresa" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_when_equals_with_two_cpf_null" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_when_equals_compare_with_a_null_class" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_a_exception_when_nome_is_empty" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_equals_from_a_null_cpf" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_equals_null" time="0.001"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_correct_input_nome" time="0.001"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_correct_input_endereco" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_endereco_not_null" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_if_tostring_contains_cliente" time="0.001"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_correct_input_cpf" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_when_equals_compare_class_with_another_object" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_wrong_input_nome" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_false_to_wrong_input_endereco" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_if_tostring_contains_endereco" time="0.001"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_a_exception_to_nome_null" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_when_equals_compare_class_with_same_object" time="0"/>
+  <testcase classname="br.com.contmatic.model.empresa.ClienteTest" name="should_return_true_to_same_equals_class_cliente" time="0"/>
+</testsuite>
