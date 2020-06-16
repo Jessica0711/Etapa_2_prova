@@ -33,9 +33,9 @@ import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
  */
 public class ProdutoTest {
 
-    /** The validator. */
-    private static Validator validator;
-    
+	/** The validator. */
+	private static Validator validator;
+
 	/** The produto. */
 	private Produto produto;
 
@@ -44,9 +44,9 @@ public class ProdutoTest {
 	 */
 	@BeforeClass
 	public static void setUp_before_class() {
-	    FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
-	    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+		FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	/**
@@ -88,25 +88,28 @@ public class ProdutoTest {
 	public void deve_retornar_verdadeiro_para_um_codigo_nao_nulo() {
 		assertNotNull(produto.getCodigo());
 	}
-	
+
 	/**
 	 * Deve retornar verdadeiro para fim de producao nao nulo.
 	 */
 	@Test
-    public void deve_retornar_verdadeiro_para_fim_de_producao_nao_nulo() {
-        assertNotNull(produto.getFimProducao());
-    }
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
-		assertThat(produto.getNome(), either(containsString("Shorts")).or(containsString("Calça")).or(containsString("Camisa")));
+	public void deve_retornar_verdadeiro_para_fim_de_producao_nao_nulo() {
+		assertNotNull(produto.getFimProducao());
 	}
 
 	/**
-	 * Deve retornar falso na comparacao do get com nome diferente do enviado no set.
+	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no
+	 * set.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
+		assertThat(produto.getNome(),
+				either(containsString("Shorts")).or(containsString("Calça")).or(containsString("Camisa")).or(containsString("Vestido")));
+	}
+
+	/**
+	 * Deve retornar falso na comparacao do get com nome diferente do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_nome_diferente_do_enviado_no_set() {
@@ -114,15 +117,17 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com marca igual do enviado no set.
+	 * Deve retornar verdadeiro na comparacao do get com marca igual do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_marca_igual_do_enviado_no_set() {
-		assertThat(produto.getMarca(), either(containsString("Camaleon")).or(containsString("Addidas")));
+		assertThat(produto.getMarca(), either(containsString("Camaleon")).or(containsString("Addidas")).or(containsString("Nike")));
 	}
 
 	/**
-	 * Deve retornar falso na comparacao do get com marca diferente do enviado no set.
+	 * Deve retornar falso na comparacao do get com marca diferente do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_marca_diferente_do_enviado_no_set() {
@@ -130,57 +135,63 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com preco igual do enviado no set.
+	 * Deve retornar verdadeiro na comparacao do get com preco igual do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_preco_igual_do_enviado_no_set() {
-	    BigDecimal teste = produto.getPreco();
-		assertTrue(produto.getPreco().compareTo(teste)==0);
+		BigDecimal teste = produto.getPreco();
+		assertTrue(produto.getPreco().compareTo(teste) == 0);
 	}
 
 	/**
-	 * Deve retornar falso na comparacao do get preco nome diferente do enviado no set.
+	 * Deve retornar falso na comparacao do get preco nome diferente do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_preco_nome_diferente_do_enviado_no_set() {
-		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00))==0);
+		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00)) == 0);
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com codigo igual do enviado no set.
+	 * Deve retornar verdadeiro na comparacao do get com codigo igual do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_codigo_igual_do_enviado_no_set() {
-	    long codigo = produto.getCodigo();
+		long codigo = produto.getCodigo();
 		assertTrue(produto.getCodigo() == codigo);
 	}
 
 	/**
-	 * Deve retornar falso na comparacao do get com codigo diferente do enviado no set.
+	 * Deve retornar falso na comparacao do get com codigo diferente do enviado no
+	 * set.
 	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_codigo_diferente_do_enviado_no_set() {
 		assertThat(produto.getCodigo(), not(3445));
 	}
-	
-    /**
-     * Deve retornar verdadeiro na comparacao do get com fim de producao igual do enviado no set.
-     */
-    @Test
-    public void deve_retornar_verdadeiro_na_comparacao_do_get_com_fim_de_producao_igual_do_enviado_no_set() {
-        DateTime producao = DateTime.parse("2030-06-07");
-        produto.setFimProducao(producao);
-         assertThat(produto.getFimProducao(), is(producao));
-    }
 
-    /**
-     * Deve retornar falso na comparacao do get com fim de producao diferente do enviado no set.
-     */
-    @Test
-    public void deve_retornar_falso_na_comparacao_do_get_com_fim_de_producao_diferente_do_enviado_no_set() {
-        DateTime producao = DateTime.now();
-        assertThat(produto.getFimProducao(), is(not(producao)));
-    }	
+	/**
+	 * Deve retornar verdadeiro na comparacao do get com fim de producao igual do
+	 * enviado no set.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_fim_de_producao_igual_do_enviado_no_set() {
+		DateTime producao = DateTime.parse("2030-06-07");
+		produto.setFimProducao(producao);
+		assertThat(produto.getFimProducao(), is(producao));
+	}
+
+	/**
+	 * Deve retornar falso na comparacao do get com fim de producao diferente do
+	 * enviado no set.
+	 */
+	@Test
+	public void deve_retornar_falso_na_comparacao_do_get_com_fim_de_producao_diferente_do_enviado_no_set() {
+		DateTime producao = DateTime.now();
+		assertThat(produto.getFimProducao(), is(not(producao)));
+	}
 
 	/**
 	 * Deve retornar verdadeiro na comparacao do hashcode de dois objetos iguais.
@@ -201,7 +212,8 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do equals.
+	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do
+	 * equals.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_comparado_dois_objetos_iguais_atraves_do_equals() {
@@ -210,7 +222,8 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar falso quando comparado dois objetos diferentes da mesma classe atraves do equals.
+	 * Deve retornar falso quando comparado dois objetos diferentes da mesma classe
+	 * atraves do equals.
 	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_dois_objetos_diferentes_da_mesma_classe_atraves_do_equals() {
@@ -220,7 +233,8 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar falso quando comparado produto a um objeto nulo atraves do equals.
+	 * Deve retornar falso quando comparado produto a um objeto nulo atraves do
+	 * equals.
 	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_produto_a_um_objeto_nulo_atraves_do_equals() {
@@ -229,7 +243,8 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro quando comparado um objeto a ele mesmo atraves do equals.
+	 * Deve retornar verdadeiro quando comparado um objeto a ele mesmo atraves do
+	 * equals.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_comparado_um_objeto_a_ele_mesmo_atraves_do_equals() {
@@ -237,51 +252,20 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar falso quando comparado dois objetos de classes diferentes atraves do equals.
+	 * Deve retornar falso quando comparado dois objetos de classes diferentes
+	 * atraves do equals.
 	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_dois_objetos_de_classes_diferentes_atraves_do_equals() {
 		assertFalse(produto.equals(new Object()));
 	}
-	
+
 	/**
 	 * Deve retornar falso quando comparado produto a nulo atraves do equals.
 	 */
 	@Test
-    public void deve_retornar_falso_quando_comparado_produto_a_nulo_atraves_do_equals() {
-        assertFalse(produto.equals(null));
-    }
-
-	/**
-	 * Deve retornar verdadeiro se no to string contem nome do produto.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_se_no_toString_contem_nome_do_produto() {
-		assertThat(produto.toString(), containsString("nome"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro se no to string contem marca.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_se_no_toString_contem_marca() {
-		assertThat(produto.toString(), containsString("marca"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro se no to string contem codigo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_se_no_toString_contem_codigo() {
-		assertThat(produto.toString(), containsString("codigo"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro se no to string contem preco.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_se_no_toString_contem_preco() {
-		assertThat(produto.toString(), containsString("preco"));
+	public void deve_retornar_falso_quando_comparado_produto_a_nulo_atraves_do_equals() {
+		assertFalse(produto.equals(null));
 	}
 
 	/**
@@ -289,62 +273,81 @@ public class ProdutoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_nome_for_nulo() {
-	    produto.setNome(null);
-	    Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-	    assertEquals(1, constraintViolations.size());
+		produto.setNome(null);
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Nome não pode estar vazio", constraintViolations.iterator().next().getMessage());
 	}
-	
+
 	/**
-	 * Deve retornar verdadeiro na captura de erro quando nome possuir caracteres invalidos.
+	 * Deve retornar verdadeiro na captura de erro quando nome possuir caracteres
+	 * invalidos.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_nome_possuir_caracteres_invalidos() {
-	    produto.setNome("!@#$%¨&*()_+");
-	    Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-        assertEquals(1, constraintViolations.size());
-        assertEquals("Caractere inválido", constraintViolations.iterator().next().getMessage());
+		produto.setNome("!@#$%¨&*()_+");
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Caractere inválido no nome", constraintViolations.iterator().next().getMessage());
 	}
-	
+
 	/**
 	 * Deve retornar verdadeiro na captura de erro quando marca for nulo.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_marca_for_nulo() {
-        produto.setMarca(null);
-        Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-        assertEquals(1, constraintViolations.size());
-    }
-	
+		produto.setMarca(null);
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Marca não pode estar vazia", constraintViolations.iterator().next().getMessage());
+	}
+
 	/**
-	 * Deve retornar verdadeiro na captura de erro quando marca possuir caracteres invalidos.
+	 * Deve retornar verdadeiro na captura de erro quando marca possuir caracteres
+	 * invalidos.
 	 */
 	@Test
-    public void deve_retornar_verdadeiro_na_captura_de_erro_quando_marca_possuir_caracteres_invalidos() {
-        produto.setMarca("!@#$%¨&*()_+");
-        Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-        assertEquals(1, constraintViolations.size());
-        assertEquals("Caractere inválido", constraintViolations.iterator().next().getMessage());
-    }
-	
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_marca_possuir_caracteres_invalidos() {
+		produto.setMarca("!@#$%¨&*()_+");
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Caractere inválido na marca", constraintViolations.iterator().next().getMessage());
+	}
+
 	/**
 	 * Deve retornar verdadeiro na captura de erro quando preco for nulo.
 	 */
 	@Test
-    public void deve_retornar_verdadeiro_na_captura_de_erro_quando_preco_for_nulo() {
-        produto.setPreco(null);
-        Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-        assertEquals(1, constraintViolations.size());
-    }
-	
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_preco_for_nulo() {
+		produto.setPreco(null);
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Preço não pode ser nulo", constraintViolations.iterator().next().getMessage());
+	}
+
 	/**
-	 * Deve retornar verdadeiro na captura de erro quando preco for menor que o permitido.
+	 * Deve retornar verdadeiro na captura de erro quando preco for menor que o
+	 * permitido.
 	 */
 	@Test
-    public void deve_retornar_verdadeiro_na_captura_de_erro_quando_preco_for_menor_que_o_permitido() {
-        produto.setPreco(BigDecimal.valueOf(0));
-        Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
-        assertEquals(1, constraintViolations.size());
-    }
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_preco_for_menor_que_o_permitido() {
+		produto.setPreco(BigDecimal.valueOf(0));
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Preço minimo é 1", constraintViolations.iterator().next().getMessage());
+	}
+	
+	/**
+	 * Deve retornar verdadeiro na captura de erro quando fim de produção for uma
+	 * data do passado
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_fim_de_producao_for_uma_data_do_passado() {
+		produto.setFimProducao(DateTime.parse("2010-06-07"));
+		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Fim da Produção deve ser uma data futura", constraintViolations.iterator().next().getMessage());
+	}
 
 	/**
 	 * Tear down.
@@ -361,5 +364,4 @@ public class ProdutoTest {
 	public static void tearDownAfterClass() {
 		System.out.println("Fim dos teste para a classe Produto");
 	}
-
 }
