@@ -1,0 +1,17 @@
+
+target/classes/META-INF/maven/br.com.contmatic/empresa/pom.properties
+target/surefire-reports/br.com.contmatic.model.empresa.ClienteTest.txt
+target/surefire-reports/br.com.contmatic.model.empresa.EmpresaTest.txt
+target/surefire-reports/br.com.contmatic.model.empresa.FuncionarioTest.txt
+target/surefire-reports/br.com.contmatic.model.endereco.EnderecoTest.txt
+target/surefire-reports/br.com.contmatic.model.produto.ProdutoTest.txt
+target/surefire-reports/br.com.contmatic.model.telefone.TelefoneTest.txt
+target/surefire-reports/br.com.contmatic.model.template.RunnerTest.txt
+target/surefire-reports/TEST-br.com.contmatic.model.empresa.ClienteTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.empresa.EmpresaTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.empresa.FuncionarioTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.endereco.EnderecoTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.produto.ProdutoTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.telefone.TelefoneTest.xml
+target/surefire-reports/TEST-br.com.contmatic.model.template.RunnerTest.xml
+target/test-classes/br/com/contmatic/model/endereco/EnderecoTest.class

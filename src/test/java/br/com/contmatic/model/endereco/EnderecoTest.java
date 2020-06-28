@@ -173,7 +173,7 @@ public class EnderecoTest {
 	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_bairro_diferente_do_enviado_no_set() {
-		assertThat(endereco.getBairro(), not("Brás"));
+		assertThat(endereco.getBairro(), not("Consolação"));
 	}
 
 	/**
