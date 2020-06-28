@@ -49,6 +49,7 @@ public enum TipoTelefone {
 		return descricao;
 	}
 
+	@Override
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
 	}

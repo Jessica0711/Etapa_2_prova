@@ -461,7 +461,7 @@ public class EmpresaTest {
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
 	}
-	
+
 	/**
 	 * Deve retornar verdadeiro na captura de erros quando inserido mais de um
 	 * telefone.

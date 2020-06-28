@@ -185,8 +185,8 @@ public class FuncionarioTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cargo_igual_do_enviado_no_set() {
-		assertThat(funcionario.getCargo(),
-				either(containsString("Vendedor")).or(containsString("Gerente")).or(containsString("Caixa")).or(containsString("Diretor(a)")));
+		assertThat(funcionario.getCargo(), either(containsString("Vendedor")).or(containsString("Gerente"))
+				.or(containsString("Caixa")).or(containsString("Diretor(a)")));
 	}
 
 	/**

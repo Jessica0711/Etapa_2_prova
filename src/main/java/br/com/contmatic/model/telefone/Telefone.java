@@ -17,7 +17,7 @@ public class Telefone {
 
 	/** The numero. */
 	@NotEmpty(message = "Número não pode estar vazio")
-	@Pattern(regexp = Regex.NUMERO_TELEFONE, message= "Caractere inválido no número")
+	@Pattern(regexp = Regex.NUMERO_TELEFONE, message = "Caractere inválido no número")
 	private String numero;
 
 	/** The tipo. */

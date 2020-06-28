@@ -103,8 +103,8 @@ public class ProdutoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
-		assertThat(produto.getNome(),
-				either(containsString("Shorts")).or(containsString("Calça")).or(containsString("Camisa")).or(containsString("Vestido")));
+		assertThat(produto.getNome(), either(containsString("Shorts")).or(containsString("Calça"))
+				.or(containsString("Camisa")).or(containsString("Vestido")));
 	}
 
 	/**
@@ -122,7 +122,8 @@ public class ProdutoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_marca_igual_do_enviado_no_set() {
-		assertThat(produto.getMarca(), either(containsString("Camaleon")).or(containsString("Addidas")).or(containsString("Nike")));
+		assertThat(produto.getMarca(),
+				either(containsString("Camaleon")).or(containsString("Addidas")).or(containsString("Nike")));
 	}
 
 	/**
@@ -336,7 +337,7 @@ public class ProdutoTest {
 		assertEquals(1, constraintViolations.size());
 		assertEquals("Preço minimo é 1", constraintViolations.iterator().next().getMessage());
 	}
-	
+
 	/**
 	 * Deve retornar verdadeiro na captura de erro quando fim de produção for uma
 	 * data do passado

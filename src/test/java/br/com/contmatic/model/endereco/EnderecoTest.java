@@ -126,8 +126,8 @@ public class EnderecoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_rua_igual_do_enviado_no_set() {
-		assertThat(endereco.getRua(),
-				either(containsString("Avenida 01")).or(containsString("Rua 02")).or(containsString("Rua 03")).or(containsString("Avenida 02")));
+		assertThat(endereco.getRua(), either(containsString("Avenida 01")).or(containsString("Rua 02"))
+				.or(containsString("Rua 03")).or(containsString("Avenida 02")));
 	}
 
 	/**
@@ -163,8 +163,8 @@ public class EnderecoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_bairro_igual_do_enviado_no_set() {
-		assertThat(endereco.getBairro(),
-				either(containsString("Itaquera")).or(containsString("Tatuapé")).or(containsString("Moema")).or(containsString("Brás")));
+		assertThat(endereco.getBairro(), either(containsString("Itaquera")).or(containsString("Tatuapé"))
+				.or(containsString("Moema")).or(containsString("Brás")));
 	}
 
 	/**
@@ -200,7 +200,8 @@ public class EnderecoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_complemento_igual_do_enviado_no_set() {
-		assertThat(endereco.getComplemento(), either(containsString("Apt 01")).or(containsString("Não possui")).or(containsString("Apt 02")));
+		assertThat(endereco.getComplemento(),
+				either(containsString("Apt 01")).or(containsString("Não possui")).or(containsString("Apt 02")));
 	}
 
 	/**
