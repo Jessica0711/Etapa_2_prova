@@ -71,75 +71,29 @@ public class TelefoneTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro para um numero nao nulo.
+	 * Deve retornar verdadeiro para um telefone nao nulo.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_para_um_numero_nao_nulo() {
+	public void deve_retornar_verdadeiro_para_um_telefone_nao_nulo() {
 		assertNotNull(telefone.getNumero());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um ddd nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_ddd_nao_nulo() {
 		assertNotNull(telefone.getDdd());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um tipo nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_tipo_nao_nulo() {
 		assertNotNull(telefone.getTipo());
+
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com numero igual do enviado no
-	 * set.
+	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_numero_igual_do_enviado_no_set() {
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(telefone.getNumero(),
 				either(containsString("947268218")).or(containsString("24874321")).or(containsString("974524542")));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com a regiao do ddd igual do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_a_regiao_do_ddd_igual_do_enviado_no_set() {
 		DDD ddd = DDD.DDD11;
 		telefone.setDdd(ddd);
 		assertThat(telefone.getDdd().getRegiao(), is("Região Metropolitana de São Paulo"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com ddd igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_ddd_igual_do_enviado_no_set() {
-		assertFalse(telefone.getDdd().getDdd() == 10);
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com a tipo igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_a_tipo_igual_do_enviado_no_set() {
 		assertThat(telefone.getTipo().getDescricao(), either(containsString("celular")).or(containsString("fixo")));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com tamanho do tipo igual do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_tamanho_do_tipo_igual_do_enviado_no_set() {
 		assertTrue(telefone.getTipo().getTamanho() == 9 || telefone.getTipo().getTamanho() == 8);
+
 	}
 
 	/**
@@ -217,7 +171,7 @@ public class TelefoneTest {
 		telefone.setNumero(null);
 		Set<ConstraintViolation<Telefone>> constraintViolations = validator.validate(telefone);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Número não pode estar vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Número telefone não pode estar vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -229,7 +183,7 @@ public class TelefoneTest {
 		telefone.setNumero("abcDVG:(:)");
 		Set<ConstraintViolation<Telefone>> constraintViolations = validator.validate(telefone);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no número", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no número do telefone", constraintViolations.iterator().next().getMessage());
 	}
 
 }

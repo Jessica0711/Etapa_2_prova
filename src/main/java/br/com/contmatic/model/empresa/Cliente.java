@@ -1,51 +1,55 @@
 package br.com.contmatic.model.empresa;
 
+import static br.com.contmatic.util.Regex.SOMENTE_LETRAS;
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.util.Set;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
+import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.telefone.Telefone;
-import br.com.contmatic.util.Regex;
 
 /**
  * The Class Cliente.
  */
-public class Cliente {
+public class Cliente extends Auditoria {
 
 	/** The nome. */
-	@NotEmpty(message = "Nome não pode ser vazio")
-	@Pattern(regexp = Regex.SOMENTE_LETRAS, message = "Caractere inválido no Nome")
+	@NotEmpty(message = "Nome do cliente não pode ser vazio")
+	@Pattern(regexp = SOMENTE_LETRAS, message = "Caractere inválido no nome do cliente")
+	@Size(min = 1, max = 80, message = "Nome do cliente deve ter no máximo 80 caratceres")
 	private String nome;
 
 	/** The cpf. */
-	@CPF(message = "CPF inválido")
+	@CPF(message = "CPF do cliente inválido")
 	private String cpf;
 
 	/** The email. */
-	@Email(message = "E-mail inválido")
-	@NotBlank(message = "Email não pode ser nulo")
+	@Email(message = "E-mail do cliente inválido")
+	@NotBlank(message = "Email do cliente não pode ser nulo")
+	@Size(min = 1, max = 60, message = "Email do cliente deve ter no máximo 60 caratceres")
 	private String email;
 
 	/** The enderecos. */
 	@Valid
-	@Size(max = 1, message = "Somente pode possuir um endereco")
+	@Size(min = 1, max = 1, message = "Somente pode possuir um endereco no cliente")
 	private Set<Endereco> enderecos;
 
 	/** The telefones. */
 	@Valid
-	@Size(max = 1, message = "Somente pode possuir um telefone")
+	@Size(min = 1, max = 1, message = "Somente pode possuir um telefone no cliente")
 	private Set<Telefone> telefones;
 
 	/**
@@ -71,7 +75,7 @@ public class Cliente {
 	 * @return the nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -89,7 +93,7 @@ public class Cliente {
 	 * @return the cpf
 	 */
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 
 	/**
@@ -107,7 +111,7 @@ public class Cliente {
 	 * @return the email
 	 */
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	/**
@@ -125,7 +129,7 @@ public class Cliente {
 	 * @return the enderecos
 	 */
 	public Set<Endereco> getEnderecos() {
-		return enderecos;
+		return this.enderecos;
 	}
 
 	/**
@@ -143,7 +147,7 @@ public class Cliente {
 	 * @return the telefones
 	 */
 	public Set<Telefone> getTelefones() {
-		return telefones;
+		return this.telefones;
 	}
 
 	/**
@@ -162,7 +166,7 @@ public class Cliente {
 	 */
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return reflectionHashCode(this);
 	}
 
 	/**
@@ -173,7 +177,7 @@ public class Cliente {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return reflectionEquals(this, obj);
 	}
 
 	/**
@@ -183,6 +187,6 @@ public class Cliente {
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
 	}
 }

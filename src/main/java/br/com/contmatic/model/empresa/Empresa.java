@@ -3,6 +3,11 @@
  */
 package br.com.contmatic.model.empresa;
 
+import static br.com.contmatic.util.Regex.SOMENTE_LETRAS;
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.util.List;
 import java.util.Set;
 
@@ -10,57 +15,57 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.br.CNPJ;
 
+import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
 import br.com.contmatic.model.telefone.Telefone;
-import br.com.contmatic.util.Regex;
 
 /**
  * The Class Empresa.
  */
-public class Empresa {
+public class Empresa extends Auditoria{
 
 	/** The nome. */
-	@NotEmpty(message = "Nome não pode ser vazio")
-	@Size(min = 1, max = 40, message = "Nome com tamanho inválido")
-	@Pattern(regexp = Regex.SOMENTE_LETRAS, message = "Caractere inválido no nome da Empresa")
+	@NotEmpty(message = "Nome da empresa não pode ser vazio")
+	@Size(min = 1, max = 80, message = "Nome da empresa deve ter no máximo 80 caracteres")
+	@Pattern(regexp = SOMENTE_LETRAS, message = "Caractere inválido no nome da empresa")
 	private String nome;
 
 	/** The cnpj. */
-	@CNPJ(message = "CNPJ inválido")
-	@NotEmpty(message = "CNPJ não pode ser nulo")
+	@CNPJ(message = "CNPJ da empresa inválido")
+	@NotEmpty(message = "CNPJ da empresa não pode ser nulo")
 	private String cnpj;
 
 	/** The enderecos. */
 	@Valid
-	@Size(max = 1, message = "Somente pode possuir um endereco")
+	@Size(min = 1, max = 1, message = "Somente pode possuir um endereco da empresa")
 	private Set<Endereco> enderecos;
 
 	/** The telefones. */
 	@Valid
-	@Size(max = 1, message = "Somente pode possuir um telefone")
+	@Size(min = 1, max = 1, message = "Somente pode possuir um telefone da empresa")
 	private Set<Telefone> telefones;
 
 	/** The site. */
-	@URL(message = "URL inválida")
+	@URL(message = "Site da empresa inválida")
+	@Size(min = 1, max = 60, message = "Site da empresa deve ter no máximo 60 caracteres")
 	private String site;
 
 	/** The funcionarios. */
 	@Valid
-	@NotEmpty(message = "Funcionários não pode ser vazio")
+	@NotEmpty(message = "Funcionários da empresa não pode ser vazio")
+	@Size(min = 1, message = "Funcionários da empresa deve ter no máximo 80 caratceres")
 	private List<Funcionario> funcionarios;
 
 	/** The produtos. */
 	@Valid
-	@NotEmpty(message = "Produtos não pode ser vazio")
+	@NotEmpty(message = "Produtos da empresa não pode ser vazio")
+	@Size(min = 1, message = "Produtos da empresa deve ter no mínimo 1 item")
 	private List<Produto> produtos;
 
 	/**
@@ -95,7 +100,7 @@ public class Empresa {
 	 * @return the nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -113,7 +118,7 @@ public class Empresa {
 	 * @return the cnpj
 	 */
 	public String getCnpj() {
-		return cnpj;
+		return this.cnpj;
 	}
 
 	/**
@@ -131,7 +136,7 @@ public class Empresa {
 	 * @return the endereco
 	 */
 	public Set<Endereco> getEnderecos() {
-		return enderecos;
+		return this.enderecos;
 	}
 
 	/**
@@ -140,7 +145,7 @@ public class Empresa {
 	 * @return the telefones
 	 */
 	public Set<Telefone> getTelefones() {
-		return telefones;
+		return this.telefones;
 	}
 
 	/**
@@ -158,7 +163,7 @@ public class Empresa {
 	 * @return the site
 	 */
 	public String getSite() {
-		return site;
+		return this.site;
 	}
 
 	/**
@@ -176,7 +181,7 @@ public class Empresa {
 	 * @return the funcionarios
 	 */
 	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
+		return this.funcionarios;
 	}
 
 	/**
@@ -194,7 +199,7 @@ public class Empresa {
 	 * @return the produtos
 	 */
 	public List<Produto> getProdutos() {
-		return produtos;
+		return this.produtos;
 	}
 
 	/**
@@ -213,7 +218,7 @@ public class Empresa {
 	 */
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return reflectionHashCode(this);
 	}
 
 	/**
@@ -224,7 +229,7 @@ public class Empresa {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return reflectionEquals(this, obj);
 	}
 
 	/**
@@ -234,7 +239,7 @@ public class Empresa {
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
 	}
 
 }

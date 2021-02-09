@@ -3,7 +3,7 @@ package br.com.contmatic.model.produto;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.joda.time.DateTime.parse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -58,140 +58,27 @@ public class ProdutoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro para um nome nao nulo.
+	 * Deve retornar verdadeiro para um produto nao nulo.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_para_um_nome_nao_nulo() {
+	public void deve_retornar_verdadeiro_para_um_produto_nao_nulo() {
 		assertNotNull(produto.getNome());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para marca nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_marca_nao_nulo() {
 		assertNotNull(produto.getMarca());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um preco nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_preco_nao_nulo() {
 		assertNotNull(produto.getPreco());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um codigo nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_codigo_nao_nulo() {
 		assertNotNull(produto.getCodigo());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para fim de producao nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_fim_de_producao_nao_nulo() {
 		assertNotNull(produto.getFimProducao());
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no
-	 * set.
+	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(produto.getNome(), either(containsString("Shorts")).or(containsString("Calça"))
 				.or(containsString("Camisa")).or(containsString("Vestido")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com nome diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_nome_diferente_do_enviado_no_set() {
-		assertThat(produto.getNome(), not("Camiseta"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com marca igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_marca_igual_do_enviado_no_set() {
 		assertThat(produto.getMarca(),
 				either(containsString("Camaleon")).or(containsString("Addidas")).or(containsString("Nike")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com marca diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_marca_diferente_do_enviado_no_set() {
-		assertThat(produto.getMarca(), not("2KB"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com preco igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_preco_igual_do_enviado_no_set() {
-		BigDecimal teste = produto.getPreco();
-		assertTrue(produto.getPreco().compareTo(teste) == 0);
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get preco nome diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_preco_nome_diferente_do_enviado_no_set() {
-		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00)) == 0);
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com codigo igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_codigo_igual_do_enviado_no_set() {
-		long codigo = produto.getCodigo();
-		assertTrue(produto.getCodigo() == codigo);
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com codigo diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_codigo_diferente_do_enviado_no_set() {
-		assertThat(produto.getCodigo(), not(3445));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com fim de producao igual do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_fim_de_producao_igual_do_enviado_no_set() {
-		DateTime producao = DateTime.parse("2030-06-07");
-		produto.setFimProducao(producao);
-		assertThat(produto.getFimProducao(), is(producao));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com fim de producao diferente do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_fim_de_producao_diferente_do_enviado_no_set() {
-		DateTime producao = DateTime.now();
-		assertThat(produto.getFimProducao(), is(not(producao)));
+		assertThat(produto.getFimProducao(), is(parse("2030-03-11")));
 	}
 
 	/**
@@ -277,7 +164,7 @@ public class ProdutoTest {
 		produto.setNome(null);
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome não pode estar vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome do produto não pode estar vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -289,7 +176,7 @@ public class ProdutoTest {
 		produto.setNome("!@#$%¨&*()_+");
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no nome", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no nome do produto", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -300,7 +187,7 @@ public class ProdutoTest {
 		produto.setMarca(null);
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Marca não pode estar vazia", constraintViolations.iterator().next().getMessage());
+		assertEquals("Marca do produto não pode estar vazia", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -312,7 +199,7 @@ public class ProdutoTest {
 		produto.setMarca("!@#$%¨&*()_+");
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido na marca", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido na marca do produto", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -323,7 +210,7 @@ public class ProdutoTest {
 		produto.setPreco(null);
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Preço não pode ser nulo", constraintViolations.iterator().next().getMessage());
+		assertEquals("Preço do produto não pode ser nulo", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -335,7 +222,7 @@ public class ProdutoTest {
 		produto.setPreco(BigDecimal.valueOf(0));
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Preço minimo é 1", constraintViolations.iterator().next().getMessage());
+		assertEquals("Preço do produto minimo é 1", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -347,7 +234,8 @@ public class ProdutoTest {
 		produto.setFimProducao(DateTime.parse("2010-06-07"));
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Fim da Produção deve ser uma data futura", constraintViolations.iterator().next().getMessage());
+		assertEquals("Fim da produção do produto deve ser uma data futura",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**

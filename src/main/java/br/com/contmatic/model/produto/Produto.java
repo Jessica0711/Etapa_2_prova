@@ -1,46 +1,51 @@
 package br.com.contmatic.model.produto;
 
+import static br.com.contmatic.util.Regex.LETRA_NUMERO;
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
 import java.math.BigDecimal;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
-import br.com.contmatic.util.Regex;
+import br.com.contmatic.model.auditoria.Auditoria;
 
 /**
  * The Class Produto.
  */
-public class Produto {
+public class Produto extends Auditoria{
 
 	/** The nome. */
-	@NotEmpty(message = "Nome não pode estar vazio")
-	@Pattern(regexp = Regex.LETRA_NUMERO, message = "Caractere inválido no nome")
+	@NotEmpty(message = "Nome do produto não pode estar vazio")
+	@Size(min = 1, max = 80, message = "Nome do produto deve ter no máximo 80 caracteres")
+	@Pattern(regexp = LETRA_NUMERO, message = "Caractere inválido no nome do produto")
 	private String nome;
 
 	/** The marca. */
-	@NotEmpty(message = "Marca não pode estar vazia")
-	@Pattern(regexp = Regex.LETRA_NUMERO, message = "Caractere inválido na marca")
+	@NotEmpty(message = "Marca do produto não pode estar vazia")
+	@Size(min = 1, max = 70, message = "Marca do produto deve ter no máximo 70 caracteres")
+	@Pattern(regexp = LETRA_NUMERO, message = "Caractere inválido na marca do produto")
 	private String marca;
 
 	/** The preco. */
-	@Min(value = 1, message = "Preço minimo é 1")
-	@NotNull(message = "Preço não pode ser nulo")
+	@Min(value = 1, message = "Preço do produto minimo é 1")
+	@NotNull(message = "Preço do produto não pode ser nulo")
 	private BigDecimal preco;
 
 	/** The codigo. */
 	private long codigo;
 
 	/** The fim producao. */
-	@Future(message = "Fim da Produção deve ser uma data futura")
+	@Future(message = "Fim da produção do produto deve ser uma data futura")
 	private DateTime fimProducao;
 
 	/**
@@ -99,7 +104,7 @@ public class Produto {
 	 * @return the nome
 	 */
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	/**
@@ -108,7 +113,7 @@ public class Produto {
 	 * @return the marca
 	 */
 	public String getMarca() {
-		return marca;
+		return this.marca;
 	}
 
 	/**
@@ -117,7 +122,7 @@ public class Produto {
 	 * @return the preco
 	 */
 	public BigDecimal getPreco() {
-		return preco;
+		return this.preco;
 	}
 
 	/**
@@ -126,7 +131,7 @@ public class Produto {
 	 * @return the codigo
 	 */
 	public long getCodigo() {
-		return codigo;
+		return this.codigo;
 	}
 
 	/**
@@ -144,7 +149,7 @@ public class Produto {
 	 * @return the fimProducao
 	 */
 	public DateTime getFimProducao() {
-		return fimProducao;
+		return this.fimProducao;
 	}
 
 	/**
@@ -163,7 +168,7 @@ public class Produto {
 	 */
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return reflectionHashCode(this);
 	}
 
 	/**
@@ -174,7 +179,7 @@ public class Produto {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return reflectionEquals(this, obj);
 	}
 
 	/**
@@ -184,7 +189,7 @@ public class Produto {
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
 	}
 
 }

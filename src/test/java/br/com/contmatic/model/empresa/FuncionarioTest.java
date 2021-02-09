@@ -3,7 +3,7 @@ package br.com.contmatic.model.empresa;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static org.joda.time.DateTime.parse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -22,7 +22,6 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,9 +30,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import br.com.contmatic.model.endereco.Endereco;
-import br.com.contmatic.model.telefone.DDD;
 import br.com.contmatic.model.telefone.Telefone;
-import br.com.contmatic.model.telefone.TipoTelefone;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
@@ -69,230 +66,43 @@ public class FuncionarioTest {
 	}
 
 	/**
-	 * Deve retornar vardadeiro para um nome nao nulo.
+	 * Deve retornar vardadeiro para um funcionário nao nulo.
 	 */
 	@Test
-	public void deve_retornar_vardadeiro_para_um_nome_nao_nulo() {
+	public void deve_retornar_vardadeiro_para_um_funcionario_nao_nulo() {
 		assertNotNull(funcionario.getNome());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um salario nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_salario_nao_nulo() {
 		assertNotNull(funcionario.getSalario());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um cargo nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_cargo_nao_nulo() {
 		assertNotNull(funcionario.getCargo());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um cpf nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_cpf_nao_nulo() {
 		assertNotNull(funcionario.getCpf());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para nascimento nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_nascimento_nao_nulo() {
 		assertNotNull(funcionario.getNascimento());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para idade nula.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_idade_nula() {
 		assertNull(funcionario.getIdade());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para contratacao nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_contratacao_nao_nulo() {
 		assertNotNull(funcionario.getContratacao());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um telefone nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_telefone_nao_nulo() {
 		assertNotNull(funcionario.getTelefones());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um endereco nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_endereco_nao_nulo() {
 		assertNotNull(funcionario.getEnderecos());
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no
-	 * set.
+	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
-		String nome = funcionario.getNome();
-		assertThat(funcionario.getNome(), is(nome));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com nome diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_nome_diferente_do_enviado_no_set() {
-		assertThat(funcionario.getNome(), not("Maria Santos"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com salario igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_salario_igual_do_enviado_no_set() {
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		BigDecimal salario = new BigDecimal(1500);
 		funcionario.setSalario(salario);
 		assertTrue(funcionario.getSalario().compareTo(salario) == 0);
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com salario diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_salario_diferente_do_enviado_no_set() {
-		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00)) == 0);
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com cargo igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cargo_igual_do_enviado_no_set() {
 		assertThat(funcionario.getCargo(), either(containsString("Vendedor")).or(containsString("Gerente"))
 				.or(containsString("Caixa")).or(containsString("Diretor(a)")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com cargo diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_cargo_diferente_do_enviado_no_set() {
-		assertThat(funcionario.getCargo(), not("Estoquista"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com cpf igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cpf_igual_do_enviado_no_set() {
 		assertThat(funcionario.getCpf(), either(containsString("432.678.378-80")).or(containsString("820.314.100-59")));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com nascimento igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nascimento_igual_do_enviado_no_set() {
-		DateTime dataNascimento = DateTime.parse("1993-06-07");
-		funcionario.setNascimento(dataNascimento);
-		assertThat(funcionario.getNascimento(), is(dataNascimento));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com nascimento diferente do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_nascimento_diferente_do_enviado_no_set() {
-		DateTime dataNascimento = DateTime.now();
-		assertThat(funcionario.getNascimento(), is(not(dataNascimento)));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com contratacao igual do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_contratacao_igual_do_enviado_no_set() {
-		DateTime dataContratacao = DateTime.parse("2018-09-11");
-		funcionario.setContratacao(dataContratacao);
-		assertThat(funcionario.getContratacao(), is(dataContratacao));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com contratacao diferente do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_contratacao_diferente_do_enviado_no_set() {
-		DateTime dataContratacao = DateTime.now();
-		assertThat(funcionario.getContratacao(), is(not(dataContratacao)));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com telefone igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_telefone_igual_do_enviado_no_set() {
+		assertThat(funcionario.getNascimento(), is(parse("1995-06-07")));
+		assertThat(funcionario.getContratacao(), is(parse("2019-09-11")));
 		Set<Telefone> telefone = new HashSet<>();
 		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
 		funcionario.setTelefones(telefone);
 		assertThat(funcionario.getTelefones(), is(telefone));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com telefone diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_telefone_diferente_do_enviado_no_set() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(new Telefone("999999999", TipoTelefone.CELULAR, DDD.DDD15));
-		assertThat(funcionario.getTelefones(), not(telefone));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com endereco igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_endereco_igual_do_enviado_no_set() {
 		Set<Endereco> endereco = new HashSet<>();
 		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
 		funcionario.setEnderecos(endereco);
 		assertThat(funcionario.getEnderecos(), is(endereco));
-	}
 
-	/**
-	 * Deve retornar falso na comparacao do get com endereco diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_endereco_diferente_do_enviado_no_set() {
-		Set<Endereco> endereco = new HashSet<>();
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		assertThat(funcionario.getEnderecos(), not(endereco));
 	}
 
 	/**
@@ -377,7 +187,7 @@ public class FuncionarioTest {
 		funcionario.setNome(null);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome do funcionário não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -400,7 +210,7 @@ public class FuncionarioTest {
 		funcionario.setSalario(BigDecimal.valueOf(1.0));
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Salário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Salário do funcionário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -412,7 +222,7 @@ public class FuncionarioTest {
 		funcionario.setSalario(BigDecimal.valueOf(100000.0));
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Salário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Salário do funcionário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -423,7 +233,7 @@ public class FuncionarioTest {
 		funcionario.setCargo(null);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Cargo não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Cargo do funcionário não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -434,7 +244,7 @@ public class FuncionarioTest {
 		funcionario.setCargo("5261bhv15rf");
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido em cargo", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido em cargo do funcionário", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -445,7 +255,7 @@ public class FuncionarioTest {
 		funcionario.setCpf("hdjkfh");
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CPF inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CPF do funcionário inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -457,7 +267,7 @@ public class FuncionarioTest {
 		funcionario.setCpf(RandomStringUtils.randomNumeric(12));
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CPF inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CPF do funcionário inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -468,7 +278,7 @@ public class FuncionarioTest {
 		funcionario.setCpf(null);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CPF deve ser preenchido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CPF do funcionário deve ser preenchido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -479,7 +289,7 @@ public class FuncionarioTest {
 		funcionario.setIdade("15");
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("idade não deve ser preenchida", constraintViolations.iterator().next().getMessage());
+		assertEquals("idade do funcionário não deve ser preenchida", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -491,7 +301,7 @@ public class FuncionarioTest {
 		telefone.add(new Telefone());
 		funcionario.setTelefones(telefone);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(9, constraintViolations.size());
 	}
 
 	/**
@@ -507,7 +317,7 @@ public class FuncionarioTest {
 		funcionario.setTelefones(telefone);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente é permitido um telefone", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente é permitido um telefone do funcionário", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -519,7 +329,7 @@ public class FuncionarioTest {
 		endereco.add(new Endereco());
 		funcionario.setEnderecos(endereco);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
-		assertEquals(3, constraintViolations.size());
+		assertEquals(10, constraintViolations.size());
 	}
 
 	/**
@@ -535,7 +345,7 @@ public class FuncionarioTest {
 		funcionario.setEnderecos(endereco);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um endereco do funcionário", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**

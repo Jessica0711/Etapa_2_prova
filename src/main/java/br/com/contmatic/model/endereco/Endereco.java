@@ -1,50 +1,60 @@
 package br.com.contmatic.model.endereco;
 
+import static br.com.contmatic.util.Regex.CEP;
+import static br.com.contmatic.util.Regex.LETRA_NUMERO;
+import static br.com.contmatic.util.Regex.SOMENTE_LETRAS;
+import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
+import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+
+import javax.validation.Valid;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.contmatic.util.Regex;
+import br.com.contmatic.model.auditoria.Auditoria;
 
 /**
  * The Class Endereco.
  */
-public class Endereco {
+public class Endereco extends Auditoria{
 
 	/** The rua. */
-	@NotEmpty(message = "Rua deve ser preenchida")
-	@Pattern(regexp = Regex.LETRA_NUMERO, message = "Caractere inválido na rua")
+	@NotEmpty(message = "Rua do endereço deve ser preenchida")
+	@Size(max = 80, message = "Rua do endereço deve ter no máximo 80 caracteres")
+	@Pattern(regexp = LETRA_NUMERO, message = "Caractere inválido na rua do endereço")
 	private String rua;
 
 	/** The numero. */
-	@Max(value = 9999, message = "Número fora do permitido")
+	@Max(value = 9999, message = "Número do endereço fora do permitido")
 	private int numero;
 
 	/** The bairro. */
-	@NotEmpty(message = "Bairro deve ser preenchido")
-	@Pattern(regexp = Regex.SOMENTE_LETRAS, message = "Caractere inválido no Bairro")
-	@Length(min = 0, max = 40, message = "Bairro com tamanho fora do permitido")
+	@NotEmpty(message = "Bairro do endereço deve ser preenchido")
+	@Size(max = 80, message = "Bairro do endereço deve ter no máximo 80 caracteres")
+	@Pattern(regexp = SOMENTE_LETRAS, message = "Caractere inválido no bairro do endereço")
+	@Length(min = 0, max = 40, message = "Bairro do endereço com tamanho fora do permitido")
 	private String bairro;
 
 	/** The cep. */
-	@NotEmpty(message = "CEP deve ser preenchido")
-	@Pattern(regexp = Regex.CEP, message = "Caractere inválido no CEP")
+	@NotEmpty(message = "CEP do endereço deve ser preenchido")
+	@Pattern(regexp = CEP, message = "Caractere inválido no CEP do endereço")
 	private String cep;
 
 	/** The complemento. */
-	@Size(max = 30, message = "Complemento maior que o permitido")
-	@Pattern(regexp = Regex.LETRA_NUMERO, message = "Caractere inválido no complemneto")
+	@Size(max = 80, message = "Complemento do endereço deve ter no máximo 80 caracteres")
+	@Pattern(regexp = LETRA_NUMERO, message = "Caractere inválido no complemneto do endereço")
 	private String complemento;
 
-	/** The estado. */
-	private Estado estado;
+	/** The cidade. */
+	@Valid
+	@NotNull(message = "Cidade do endereço deve ser preenchida")
+	private Cidade cidade;
 
 	/**
 	 * Instantiates a new endereco.
@@ -67,7 +77,7 @@ public class Endereco {
 	 * @return the rua
 	 */
 	public String getRua() {
-		return rua;
+		return this.rua;
 	}
 
 	/**
@@ -85,7 +95,7 @@ public class Endereco {
 	 * @return the numero
 	 */
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	/**
@@ -103,7 +113,7 @@ public class Endereco {
 	 * @return the bairro
 	 */
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	/**
@@ -121,7 +131,7 @@ public class Endereco {
 	 * @return the cep
 	 */
 	public String getCep() {
-		return cep;
+		return this.cep;
 	}
 
 	/**
@@ -139,7 +149,7 @@ public class Endereco {
 	 * @return the complemento
 	 */
 	public String getComplemento() {
-		return complemento;
+		return this.complemento;
 	}
 
 	/**
@@ -152,21 +162,21 @@ public class Endereco {
 	}
 
 	/**
-	 * Gets the estado.
+	 * Gets the cidade.
 	 *
-	 * @return the estado
+	 * @return the cidade
 	 */
-	public Estado getEstado() {
-		return estado;
+	public Cidade getCidade() {
+		return this.cidade;
 	}
 
 	/**
-	 * Sets the estado.
+	 * Sets the cidade.
 	 *
-	 * @param estado the new estado
+	 * @param cidade the new cidade
 	 */
-	public void setEstado(Estado estado) {
-		this.estado = estado;
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 	/**
@@ -176,7 +186,7 @@ public class Endereco {
 	 */
 	@Override
 	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
+		return reflectionHashCode(this);
 	}
 
 	/**
@@ -187,7 +197,7 @@ public class Endereco {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
+		return reflectionEquals(this, obj);
 	}
 
 	/**
@@ -197,7 +207,7 @@ public class Endereco {
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
 	}
 
 }

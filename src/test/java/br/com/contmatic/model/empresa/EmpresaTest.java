@@ -1,9 +1,11 @@
 package br.com.contmatic.model.empresa;
 
+import static br.com.six2six.fixturefactory.Fixture.from;
+import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemplates;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -17,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -31,11 +32,8 @@ import org.junit.Test;
 
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
-import br.com.contmatic.model.telefone.DDD;
 import br.com.contmatic.model.telefone.Telefone;
-import br.com.contmatic.model.telefone.TipoTelefone;
 import br.com.six2six.fixturefactory.Fixture;
-import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 /**
  * The Class EmpresaTest.
@@ -54,8 +52,8 @@ public class EmpresaTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		loadTemplates("br.com.contmatic.model.template");
+		ValidatorFactory factory = buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
@@ -64,164 +62,32 @@ public class EmpresaTest {
 	 */
 	@Before
 	public void setUp() {
-		empresa = Fixture.from(Empresa.class).gimme("valid");
+		empresa = from(Empresa.class).gimme("valid");
 	}
 
 	/**
-	 * Deve retornar verdadeiro para um nome nao nulo.
+	 * Deve retornar verdadeiro para uma empresa nao nulo.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_para_um_nome_nao_nulo() {
+	public void deve_retornar_verdadeiro_para_uma_empresa_nao_nulo() {
 		assertNotNull(empresa.getNome());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um cnpj nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_cnpj_nao_nulo() {
 		assertNotNull(empresa.getCnpj());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um endereco nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_endereco_nao_nulo() {
 		assertNotNull(empresa.getEnderecos());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um telefone nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_telefone_nao_nulo() {
 		assertNotNull(empresa.getTelefones());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um site nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_site_nao_nulo() {
 		assertNotNull(empresa.getSite());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um funcionario nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_funcionario_nao_nulo() {
 		assertNotNull(empresa.getFuncionarios());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um produto nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_produto_nao_nulo() {
 		assertNotNull(empresa.getProdutos());
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no
-	 * set.
+	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(empresa.getNome(), either(containsString("Contmatic")).or(containsString("Softmatic")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com nome diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_nome_diferente_do_enviado_no_set() {
-		assertThat(empresa.getNome(), not("Microsoft"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com cnpj igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cnpj_igual_do_enviado_no_set() {
 		assertThat(empresa.getCnpj(), is(empresa.getCnpj()));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com cnpj diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_cnpj_diferente_do_enviado_no_set() {
-		assertThat(empresa.getCnpj(), not(is("123456788")));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com endereco igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_endereco_igual_do_enviado_no_set() {
-		Set<Endereco> endereco = new HashSet<>();
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		empresa.setEnderecos(endereco);
-		assertThat(empresa.getEnderecos(), is(endereco));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com endereco diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_endereco_diferente_do_enviado_no_set() {
-		Set<Endereco> endereco = new HashSet<>();
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		assertThat(empresa.getEnderecos(), not(endereco));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com telefone igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_telefone_igual_do_enviado_no_set() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		empresa.setTelefones(telefone);
-		assertThat(empresa.getTelefones(), is(telefone));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com telefone diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_telefone_diferente_do_enviado_no_set() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(new Telefone("999999999", TipoTelefone.CELULAR, DDD.DDD15));
-		assertThat(empresa.getTelefones(), not(telefone));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com site igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_site_igual_do_enviado_no_set() {
 		assertThat(empresa.getSite(),
 				either(containsString("http://teste.com.br")).or(containsString("http://empresa.com.br")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com site diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_site_diferente_do_enviado_no_set() {
-		assertThat(empresa.getSite(), is(not("http://www.google.com")));
 	}
 
 	/**
@@ -352,7 +218,7 @@ public class EmpresaTest {
 		empresa.setFuncionarios(null);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Funcionários não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Funcionários da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -363,7 +229,7 @@ public class EmpresaTest {
 		empresa.setProdutos(null);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Produtos não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Produtos da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -374,7 +240,7 @@ public class EmpresaTest {
 		empresa.setNome("9sg1çm85");
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no nome da Empresa", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no nome da empresa", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -383,10 +249,10 @@ public class EmpresaTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_nome_for_maior_que_o_limite() {
-		empresa.setNome(RandomStringUtils.randomAlphabetic(41));
+		empresa.setNome(RandomStringUtils.randomAlphabetic(81));
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome com tamanho inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome da empresa deve ter no máximo 80 caracteres", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -397,7 +263,7 @@ public class EmpresaTest {
 		empresa.setCnpj("9sg1çm85");
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CNPJ inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CNPJ da empresa inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -408,7 +274,7 @@ public class EmpresaTest {
 		empresa.setCnpj(null);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CNPJ não pode ser nulo", constraintViolations.iterator().next().getMessage());
+		assertEquals("CNPJ da empresa não pode ser nulo", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -419,7 +285,7 @@ public class EmpresaTest {
 		empresa.setCnpj("12.345.678/9012-34");
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CNPJ inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CNPJ da empresa inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -431,7 +297,7 @@ public class EmpresaTest {
 		endereco.add(new Endereco());
 		empresa.setEnderecos(endereco);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(3, constraintViolations.size());
+		assertEquals(10, constraintViolations.size());
 	}
 
 	/**
@@ -447,7 +313,7 @@ public class EmpresaTest {
 		empresa.setEnderecos(endereco);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um endereco da empresa", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -459,7 +325,7 @@ public class EmpresaTest {
 		tel.add(new Telefone());
 		empresa.setTelefones(tel);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(9, constraintViolations.size());
 	}
 
 	/**
@@ -475,7 +341,7 @@ public class EmpresaTest {
 		empresa.setTelefones(telefone);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um telefone", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um telefone da empresa", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -486,7 +352,7 @@ public class EmpresaTest {
 		empresa.setSite(" ");
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("URL inválida", constraintViolations.iterator().next().getMessage());
+		assertEquals("Site da empresa inválida", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -498,7 +364,7 @@ public class EmpresaTest {
 		empresa.setSite("google.com");
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("URL inválida", constraintViolations.iterator().next().getMessage());
+		assertEquals("Site da empresa inválida", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -510,7 +376,7 @@ public class EmpresaTest {
 		func.add(new Funcionario());
 		empresa.setFuncionarios(func);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(3, constraintViolations.size());
+		assertEquals(11, constraintViolations.size());
 	}
 
 	/**
@@ -521,7 +387,7 @@ public class EmpresaTest {
 		empresa.setFuncionarios(null);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Funcionários não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Funcionários da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -533,7 +399,7 @@ public class EmpresaTest {
 		prod.add(new Produto());
 		empresa.setProdutos(prod);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(3, constraintViolations.size());
+		assertEquals(9, constraintViolations.size());
 	}
 
 	/**
@@ -544,7 +410,7 @@ public class EmpresaTest {
 		empresa.setProdutos(null);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Produtos não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Produtos da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**

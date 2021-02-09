@@ -1,19 +1,17 @@
 package br.com.contmatic.model.endereco;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.either;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
+import static br.com.six2six.fixturefactory.Fixture.from;
+import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemplates;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
+import static org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -25,7 +23,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.six2six.fixturefactory.Fixture;
-import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 /**
  * The Class EnderecoTest.
@@ -43,8 +40,8 @@ public class EnderecoTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		loadTemplates("br.com.contmatic.model.template");
+		ValidatorFactory factory = buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
@@ -61,7 +58,7 @@ public class EnderecoTest {
 	 */
 	@Before
 	public void setUp() {
-		endereco = Fixture.from(Endereco.class).gimme("valid");
+		endereco = from(Endereco.class).gimme("valid");
 	}
 
 	/**
@@ -73,154 +70,22 @@ public class EnderecoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro para um rua nao nulo.
+	 * Deve retornar verdadeiro para um endereco nao nulo.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_para_um_rua_nao_nulo() {
+	public void should_return_true_to_not_null() {
 		assertNotNull(endereco.getRua());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um numero nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_numero_nao_nulo() {
 		assertNotNull(endereco.getNumero());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um bairro nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_bairro_nao_nulo() {
 		assertNotNull(endereco.getBairro());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um cep nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_cep_nao_nulo() {
 		assertNotNull(endereco.getCep());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um complemento nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_complemento_nao_nulo() {
 		assertNotNull(endereco.getComplemento());
-	}
-
-	/**
-	 * Deve retornar verdadeiro para um estado nao nulo.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_para_um_estado_nao_nulo() {
-		assertNotNull(endereco.getEstado());
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com rua igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_rua_igual_do_enviado_no_set() {
-		assertThat(endereco.getRua(), either(containsString("Avenida 01")).or(containsString("Rua 02"))
-				.or(containsString("Rua 03")).or(containsString("Avenida 02")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com rua diferente do enviado no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_rua_diferente_do_enviado_no_set() {
-		assertThat(endereco.getRua(), not("Rua um"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com numero igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_numero_igual_do_enviado_no_set() {
-		int numero = endereco.getNumero();
-		assertThat(endereco.getNumero(), is(numero));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com numero diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_numero_diferente_do_enviado_no_set() {
-		assertThat(endereco.getNumero(), not(2));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com bairro igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_bairro_igual_do_enviado_no_set() {
-		assertThat(endereco.getBairro(), either(containsString("Itaquera")).or(containsString("Tatuapé"))
-				.or(containsString("Moema")).or(containsString("Brás")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com bairro diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_bairro_diferente_do_enviado_no_set() {
-		assertThat(endereco.getBairro(), not("Consolação"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com cep igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cep_igual_do_enviado_no_set() {
-		assertThat(endereco.getCep(),
-				either(containsString("01234-567")).or(containsString("98765-412")).or(containsString("78945-816")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com cep diferente do enviado no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_cep_diferente_do_enviado_no_set() {
-		assertThat(endereco.getCep(), not("43210-765"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com complemento igual do
-	 * enviado no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_complemento_igual_do_enviado_no_set() {
-		assertThat(endereco.getComplemento(),
-				either(containsString("Apt 01")).or(containsString("Não possui")).or(containsString("Apt 02")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com complemente diferente do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_complemente_diferente_do_enviado_no_set() {
-		assertThat(endereco.getComplemento(), not("Apt 08"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com estado igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_estado_igual_do_enviado_no_set() {
-		endereco.setEstado(Estado.SP);
-		assertThat(endereco.getEstado().getNome(), is("São Paulo"));
+		assertNotNull(endereco.getCidade());
+		assertNotNull(endereco.getDataAlteracao());
+		assertNotNull(endereco.getDataCadastro());
+		assertNotNull(endereco.getCriadoPor());
+		assertNotNull(endereco.getUltimaModificacao());
+		assertNotNull(endereco.getIpCriadoPor());
+		assertNotNull(endereco.getIpUltimaModificacao());
 	}
 
 	/**
@@ -263,7 +128,7 @@ public class EnderecoTest {
 	}
 
 	/**
-	 * Deve retornar falso quando comparado endereco a um objeto nulo atraves do
+	 * Deve retornar falso quando comparado endereço a um objeto nulo atraves do
 	 * equals.
 	 */
 	@Test
@@ -282,7 +147,7 @@ public class EnderecoTest {
 	}
 
 	/**
-	 * Deve retornar falso quando comparado endereco a nulo atraves do equals.
+	 * Deve retornar falso quando comparado endereço a nulo atraves do equals.
 	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_endereco_a_nulo_atraves_do_equals() {
@@ -306,7 +171,7 @@ public class EnderecoTest {
 		endereco.setRua(null);
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Rua deve ser preenchida", constraintViolations.iterator().next().getMessage());
+		assertEquals("Rua do endereço deve ser preenchida", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -318,7 +183,7 @@ public class EnderecoTest {
 		endereco.setRua("!@#$%¨&*()");
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido na rua", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido na rua do endereço", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -330,7 +195,7 @@ public class EnderecoTest {
 		endereco.setNumero(10000);
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Número fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Número do endereço fora do permitido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -341,7 +206,7 @@ public class EnderecoTest {
 		endereco.setBairro(null);
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Bairro deve ser preenchido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Bairro do endereço deve ser preenchido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -353,7 +218,7 @@ public class EnderecoTest {
 		endereco.setBairro("15684!@#$");
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no Bairro", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no bairro do endereço", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -365,7 +230,7 @@ public class EnderecoTest {
 		endereco.setBairro(RandomStringUtils.randomAlphabetic(41));
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Bairro com tamanho fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Bairro do endereço com tamanho fora do permitido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -376,7 +241,7 @@ public class EnderecoTest {
 		endereco.setCep(null);
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CEP deve ser preenchido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CEP do endereço deve ser preenchido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -387,7 +252,7 @@ public class EnderecoTest {
 		endereco.setCep("AbCdEf!@#$");
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no CEP", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no CEP do endereço", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -399,7 +264,7 @@ public class EnderecoTest {
 		endereco.setComplemento("*_*-_-:):(:$;):*(");
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no complemneto", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no complemneto do endereço", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -408,10 +273,10 @@ public class EnderecoTest {
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_o_complemento_for_maior_que_o_tamanho_maximo() {
-		endereco.setComplemento(RandomStringUtils.randomAlphabetic(31));
+		endereco.setComplemento(randomAlphabetic(81));
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Complemento maior que o permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Complemento do endereço deve ter no máximo 80 caracteres", constraintViolations.iterator().next().getMessage());
 	}
 
 }

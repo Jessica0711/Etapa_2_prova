@@ -3,7 +3,6 @@ package br.com.contmatic.model.empresa;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -28,9 +27,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import br.com.contmatic.model.endereco.Endereco;
-import br.com.contmatic.model.telefone.DDD;
 import br.com.contmatic.model.telefone.Telefone;
-import br.com.contmatic.model.telefone.TipoTelefone;
 import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
@@ -81,133 +78,34 @@ public class ClienteTest {
 	}
 
 	/**
-	 * Deve retornar vardadeiro para um nome nao nulo.
+	 * Deve retornar vardadeiro para uma empresa nao nulo.
 	 */
 	@Test
-	public void deve_retornar_vardadeiro_para_um_nome_nao_nulo() {
+	public void deve_retornar_vardadeiro_para_uma_empresa_nao_nulo() {
 		assertNotNull(cliente.getNome());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um cpf nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_cpf_nao_nulo() {
 		assertNotNull(cliente.getCpf());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um endereco nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_endereco_nao_nulo() {
 		assertNotNull(cliente.getEnderecos());
-	}
-
-	/**
-	 * Deve retornar vardadeiro para um email nao nulo.
-	 */
-	@Test
-	public void deve_retornar_vardadeiro_para_um_email_nao_nulo() {
 		assertNotNull(cliente.getEmail());
-	}
-
-	/**
-	 * Deve retornarverdadeiro para um telefone não nulo.
-	 */
-	@Test
-	public void deve_retornarverdadeiro_para_um_telefone_não_nulo() {
 		assertNotNull(cliente.getTelefones());
 	}
 
 	/**
-	 * Deve retornar verdadeiro na comparacao do get com nome igual do enviado no
-	 * set.
+	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
 	 */
 	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_nome_igual_do_enviado_no_set() {
-		String nome = cliente.getNome();
-		assertThat(cliente.getNome(), is(nome));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com nome diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_nome_diferente_do_enviado_no_set() {
-		assertThat(cliente.getNome(), not("João Silva"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com cpf igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_cpf_igual_do_enviado_no_set() {
+	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(cliente.getCpf(), either(containsString("820.314.100-59")).or(containsString("432.678.378-80")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com cpf diferente do enviado no set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_cpf_diferente_do_enviado_no_set() {
-		assertThat(cliente.getCpf(), not("555.614.488-80"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com endereco igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_endereco_igual_do_enviado_no_set() {
 		Set<Endereco> endereco = new HashSet<>();
 		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
 		cliente.setEnderecos(endereco);
 		assertThat(cliente.getEnderecos(), is(endereco));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com email igual do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_email_igual_do_enviado_no_set() {
 		assertThat(cliente.getEmail(),
 				either(containsString("exemplo@teste.com")).or(containsString("testando@test.com")));
-	}
-
-	/**
-	 * Deve retornar falso na comparacao do get com email diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_email_diferente_do_enviado_no_set() {
-		assertThat(cliente.getEmail(), not("qualquer@email.com.br"));
-	}
-
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com telefone igual do enviado
-	 * no set.
-	 */
-	@Test
-	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_telefone_igual_do_enviado_no_set() {
 		Set<Telefone> telefone = new HashSet<>();
 		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
 		cliente.setTelefones(telefone);
 		assertThat(cliente.getTelefones(), is(telefone));
-	}
 
-	/**
-	 * Deve retornar falso na comparacao do get com telefone diferente do enviado no
-	 * set.
-	 */
-	@Test
-	public void deve_retornar_falso_na_comparacao_do_get_com_telefone_diferente_do_enviado_no_set() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(new Telefone("999999999", TipoTelefone.CELULAR, DDD.DDD15));
-		assertThat(cliente.getTelefones(), not(telefone));
 	}
 
 	/**
@@ -284,7 +182,7 @@ public class ClienteTest {
 		cliente.setNome("5261bhv15rf");
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no Nome", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no nome do cliente", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -295,7 +193,7 @@ public class ClienteTest {
 		cliente.setNome(null);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome não pode ser vazio", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome do cliente não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -306,7 +204,7 @@ public class ClienteTest {
 		cliente.setCpf("45f1egf1es54d");
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CPF inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CPF do cliente inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -318,7 +216,7 @@ public class ClienteTest {
 		cliente.setCpf(RandomStringUtils.randomNumeric(12));
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("CPF inválido", constraintViolations.iterator().next().getMessage());
+		assertEquals("CPF do cliente inválido", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -329,7 +227,7 @@ public class ClienteTest {
 		cliente.setEmail(null);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Email não pode ser nulo", constraintViolations.iterator().next().getMessage());
+		assertEquals("Email do cliente não pode ser nulo", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -341,7 +239,7 @@ public class ClienteTest {
 		telefone.add(new Telefone());
 		cliente.setTelefones(telefone);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(9, constraintViolations.size());
 	}
 
 	/**
@@ -357,7 +255,7 @@ public class ClienteTest {
 		cliente.setTelefones(telefone);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um telefone", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um telefone no cliente", constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -369,7 +267,7 @@ public class ClienteTest {
 		endereco.add(new Endereco());
 		cliente.setEnderecos(endereco);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
-		assertEquals(3, constraintViolations.size());
+		assertEquals(10, constraintViolations.size());
 	}
 
 	/**
@@ -385,6 +283,6 @@ public class ClienteTest {
 		cliente.setEnderecos(endereco);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cliente);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um endereco no cliente", constraintViolations.iterator().next().getMessage());
 	}
 }
