@@ -58,3 +58,4 @@ target/classes/br/com/contmatic/model/endereco/Cidade.class
 target/classes/br/com/contmatic/model/endereco/EstadoNome.class
 target/classes/br/com/contmatic/model/endereco/Pais.class
 target/classes/br/com/contmatic/model/auditoria/Auditoria.class
+target/test-classes/br/com/contmatic/model/template/EmpresaTemplateFixtureFactory$11.class

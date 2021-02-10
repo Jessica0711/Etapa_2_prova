@@ -243,6 +243,17 @@ public class EnderecoTest {
 		assertEquals(1, constraintViolations.size());
 		assertEquals("CEP do endereço deve ser preenchido", constraintViolations.iterator().next().getMessage());
 	}
+	
+	/**
+	 * Deve retornar verdadeiro na captura de erro quando cidade for nulo.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_cidade_for_nulo() {
+		endereco.setCidade(null);
+		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Cidade do endereço deve ser preenchida", constraintViolations.iterator().next().getMessage());
+	}
 
 	/**
 	 * Deve retornar verdadeiro na captura de erro quando for inserido letra no cep.

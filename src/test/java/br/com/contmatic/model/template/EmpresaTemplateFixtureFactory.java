@@ -1,5 +1,6 @@
 package br.com.contmatic.model.template;
 
+import static br.com.contmatic.model.endereco.EstadoNome.SP;
 import static br.com.six2six.fixturefactory.Fixture.of;
 import static java.math.BigDecimal.valueOf;
 import static org.joda.time.DateTime.parse;
@@ -16,7 +17,6 @@ import br.com.contmatic.model.empresa.Funcionario;
 import br.com.contmatic.model.endereco.Cidade;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.endereco.Estado;
-import br.com.contmatic.model.endereco.EstadoNome;
 import br.com.contmatic.model.endereco.Pais;
 import br.com.contmatic.model.produto.Produto;
 import br.com.contmatic.model.telefone.DDD;
@@ -84,10 +84,23 @@ public class EmpresaTemplateFixtureFactory implements TemplateLoader {
 			}
 		});
 
+		of(Cidade.class).addTemplate("forEstado", new Rule() {
+			{
+				add("nome", random("São Paulo", "Campinas", "Bertioga"));
+				add("estado", new Estado(SP, new Pais("Brasil")));
+				add("dataCadastro", parse("2021-03-02"));
+				add("dataAlteracao", parse("2021-03-02"));
+				add("criadoPor", random("admim", "user"));
+				add("ultimaModificacao", random("admim", "user"));
+				add("ipCriadoPor", random("1111111", "2222222", "3333333"));
+				add("ipUltimaModificacao", random("1111111", "2222222", "3333333"));
+			}
+		});
+
 		of(Estado.class).addTemplate("valid", new Rule() {
 			{
-				add("nome", EstadoNome.values()[new Random().nextInt(27)]);
-				add("cidades", has(2).of(Cidade.class, "valid"));
+				add("nome", SP);
+				add("cidades", has(2).of(Cidade.class, "forEstado"));
 				add("pais", one(Pais.class, "valid"));
 				add("dataCadastro", parse("2021-03-02"));
 				add("dataAlteracao", parse("2021-03-02"));
@@ -175,7 +188,7 @@ public class EmpresaTemplateFixtureFactory implements TemplateLoader {
 				add("ipUltimaModificacao", random("1111111", "2222222", "3333333"));
 			}
 		});
-		
+
 		of(Auditoria.class).addTemplate("valid", new Rule() {
 			{
 				add("dataCadastro", parse("2021-03-02"));

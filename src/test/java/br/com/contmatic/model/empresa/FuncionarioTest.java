@@ -210,7 +210,8 @@ public class FuncionarioTest {
 		funcionario.setSalario(BigDecimal.valueOf(1.0));
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Salário do funcionário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Salário do funcionário com valor fora do permitido",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -222,7 +223,8 @@ public class FuncionarioTest {
 		funcionario.setSalario(BigDecimal.valueOf(100000.0));
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Salário do funcionário com valor fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Salário do funcionário com valor fora do permitido",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -282,6 +284,18 @@ public class FuncionarioTest {
 	}
 
 	/**
+	 * Deve retornar verdadeiro na captura de erro quando contratacao for nulo.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_contratacao_for_nulo() {
+		funcionario.setContratacao(null);
+		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
+		assertEquals(1, constraintViolations.size());
+		assertEquals("Contratação do funcionário não pode ser nula",
+				constraintViolations.iterator().next().getMessage());
+	}
+
+	/**
 	 * Deve retornar verdadeiro na captura de erro quando idade nao for nula.
 	 */
 	@Test
@@ -289,7 +303,8 @@ public class FuncionarioTest {
 		funcionario.setIdade("15");
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("idade do funcionário não deve ser preenchida", constraintViolations.iterator().next().getMessage());
+		assertEquals("idade do funcionário não deve ser preenchida",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -317,7 +332,8 @@ public class FuncionarioTest {
 		funcionario.setTelefones(telefone);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente é permitido um telefone do funcionário", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente é permitido um telefone do funcionário",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**
@@ -345,7 +361,8 @@ public class FuncionarioTest {
 		funcionario.setEnderecos(endereco);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco do funcionário", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um endereco do funcionário",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	/**

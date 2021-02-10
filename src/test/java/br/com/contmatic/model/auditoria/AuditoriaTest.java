@@ -8,8 +8,10 @@ import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
 import static org.joda.time.DateTime.parse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -169,6 +171,80 @@ public class AuditoriaTest {
 		Set<ConstraintViolation<Auditoria>> constraintViolations = validator.validate(this.auditoria);
 		assertEquals(1, constraintViolations.size());
 		assertEquals("Última modificação não pode ser vazia", constraintViolations.iterator().next().getMessage());
+	}
+	
+	/**
+	 * Deve retornar verdadeiro na comparacao do hashcode de dois objetos iguais.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_na_comparacao_do_hashcode_de_dois_objetos_iguais() {
+		Auditoria outraAuditoria = this.auditoria;
+		assertEquals(this.auditoria.hashCode(), outraAuditoria.hashCode());
+	}
+
+	/**
+	 * Deve retornar falso na comparacao do hashcode de dois objetos diferentes.
+	 */
+	@Test
+	public void deve_retornar_falso_na_comparacao_do_hashcode_de_dois_objetos_diferentes() {
+		Auditoria outraAuditoria = from(Auditoria.class).gimme("valid");
+		assertFalse(this.auditoria.hashCode() == outraAuditoria.hashCode());
+	}
+
+	/**
+	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do
+	 * equals.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_quando_comparado_dois_objetos_iguais_atraves_do_equals() {
+		Auditoria outraAuditoria = this.auditoria;
+		assertTrue(this.auditoria.equals(outraAuditoria));
+	}
+
+	/**
+	 * Deve retornar falso quando comparado dois objetos diferentes da mesma classe
+	 * atraves do equals.
+	 */
+	@Test
+	public void deve_retornar_falso_quando_comparado_dois_objetos_diferentes_da_mesma_classe_atraves_do_equals() {
+		Auditoria outraAuditoria = from(Auditoria.class).gimme("valid");
+		assertFalse(this.auditoria.equals(outraAuditoria));
+	}
+
+	/**
+	 * Deve retornar falso quando comparado endereço a um objeto nulo atraves do
+	 * equals.
+	 */
+	@Test
+	public void deve_retornar_falso_quando_comparado_auditoria_a_um_objeto_nulo_atraves_do_equals() {
+		Auditoria outraAuditoria = null;
+		assertFalse(this.auditoria.equals(outraAuditoria));
+	}
+
+	/**
+	 * Deve retornar falso quando comparado dois objetos de classes diferentes
+	 * atraves do equals.
+	 */
+	@Test
+	public void deve_retornar_falso_quando_comparado_dois_objetos_de_classes_diferentes_atraves_do_equals() {
+		assertFalse(this.auditoria.equals(new Object()));
+	}
+
+	/**
+	 * Deve retornar falso quando comparado endereço a nulo atraves do equals.
+	 */
+	@Test
+	public void deve_retornar_falso_quando_comparado_auditoria_a_nulo_atraves_do_equals() {
+		assertFalse(this.auditoria.equals(null));
+	}
+
+	/**
+	 * Deve retornar verdadeiro quando comparado um objeto a ele mesmo atraves do
+	 * equals.
+	 */
+	@Test
+	public void deve_retornar_verdadeiro_quando_comparado_um_objeto_a_ele_mesmo_atraves_do_equals() {
+		assertTrue(this.auditoria.equals(this.auditoria));
 	}
 
 }

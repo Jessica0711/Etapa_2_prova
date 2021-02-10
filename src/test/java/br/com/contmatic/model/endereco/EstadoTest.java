@@ -1,5 +1,6 @@
 package br.com.contmatic.model.endereco;
 
+import static br.com.contmatic.model.endereco.EstadoNome.RJ;
 import static br.com.six2six.fixturefactory.Fixture.from;
 import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemplates;
 import static javax.validation.Validation.buildDefaultValidatorFactory;
@@ -9,6 +10,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -28,7 +30,7 @@ public class EstadoTest {
 
 	/** The estado. */
 	private Estado estado;
-	
+
 	/** The validator. */
 	private static Validator validator;
 
@@ -88,9 +90,8 @@ public class EstadoTest {
 	 * Should return true to the same hashcode class cidade.
 	 */
 	@Test
-	public void should_return_true_to_the_same_hashcode_class_Cidade() {
-		Estado outroEstado = from(Estado.class).gimme("valid");
-		outroEstado.setCidades(this.estado.getCidades());
+	public void should_return_true_to_the_same_hashcode_class_estado() {
+		Estado outroEstado = this.estado;
 		assertEquals(this.estado.hashCode(), outroEstado.hashCode());
 	}
 
@@ -104,12 +105,12 @@ public class EstadoTest {
 	}
 
 	/**
-	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do equals.
+	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do
+	 * equals.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_comparado_dois_objetos_iguais_atraves_do_equals() {
-		Estado outroEstado = new Estado(this.estado.getNome(), this.estado.getPais());
-		outroEstado.setCidades(this.estado.getCidades());
+		Estado outroEstado = this.estado;
 		assertTrue(this.estado.equals(outroEstado));
 	}
 
@@ -155,7 +156,7 @@ public class EstadoTest {
 		Set<ConstraintViolation<Estado>> constraintViolations = validator.validate(this.estado);
 		assertEquals(0, constraintViolations.size());
 	}
-	
+
 	/**
 	 * Deve retornar verdadeiro na captura de erro quando nome for vazio.
 	 */
@@ -177,9 +178,10 @@ public class EstadoTest {
 		assertEquals(1, constraintViolations.size());
 		assertEquals("País do estado não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
-	
+
 	/**
-	 * Deve retornar verdadeiro na captura de erro quando cidade for uma lista vazio.
+	 * Deve retornar verdadeiro na captura de erro quando cidade for uma lista
+	 * vazio.
 	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_cidade_for_uma_lista_vazio() {
@@ -187,5 +189,15 @@ public class EstadoTest {
 		Set<ConstraintViolation<Estado>> constraintViolations = validator.validate(this.estado);
 		assertEquals(1, constraintViolations.size());
 		assertEquals("Estado deve possuir no minímo 1 cidade", constraintViolations.iterator().next().getMessage());
+	}
+
+	/**
+	 * Deve retornar uma exception quando as cidades tem diferentes estados.
+	 */
+	@Test(expected = IllegalStateException.class)
+	public void deve_retornar_uma_exception_quando_as_cidades_tem_diferentes_estados() {
+		List<Cidade> cidades = new ArrayList<>();
+		cidades.add(new Cidade("Rio de Janeiro", new Estado(RJ, new Pais("Brasil"))));
+		this.estado.setCidades(cidades);
 	}
 }
