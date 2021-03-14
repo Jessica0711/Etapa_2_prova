@@ -25,14 +25,8 @@ import br.com.contmatic.model.telefone.TipoTelefone;
 import br.com.six2six.fixturefactory.Rule;
 import br.com.six2six.fixturefactory.loader.TemplateLoader;
 
-/**
- * A factory for creating EmpresaTemplateFixture objects.
- */
 public class EmpresaTemplateFixtureFactory implements TemplateLoader {
 
-	/**
-	 * Load.
-	 */
 	@Override
 	public void load() {
 
@@ -84,23 +78,9 @@ public class EmpresaTemplateFixtureFactory implements TemplateLoader {
 			}
 		});
 
-		of(Cidade.class).addTemplate("forEstado", new Rule() {
-			{
-				add("nome", random("São Paulo", "Campinas", "Bertioga"));
-				add("estado", new Estado(SP, new Pais("Brasil")));
-				add("dataCadastro", parse("2021-03-02"));
-				add("dataAlteracao", parse("2021-03-02"));
-				add("criadoPor", random("admim", "user"));
-				add("ultimaModificacao", random("admim", "user"));
-				add("ipCriadoPor", random("1111111", "2222222", "3333333"));
-				add("ipUltimaModificacao", random("1111111", "2222222", "3333333"));
-			}
-		});
-
 		of(Estado.class).addTemplate("valid", new Rule() {
 			{
 				add("nome", SP);
-				add("cidades", has(2).of(Cidade.class, "forEstado"));
 				add("pais", one(Pais.class, "valid"));
 				add("dataCadastro", parse("2021-03-02"));
 				add("dataAlteracao", parse("2021-03-02"));

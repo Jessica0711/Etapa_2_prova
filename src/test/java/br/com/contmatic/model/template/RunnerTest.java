@@ -15,9 +15,6 @@ import br.com.contmatic.model.endereco.PaisTest;
 import br.com.contmatic.model.produto.ProdutoTest;
 import br.com.contmatic.model.telefone.TelefoneTest;
 
-/**
- * The Class RunnerTest.
- */
 @RunWith(Suite.class)
 @SuiteClasses({ EmpresaTest.class, FuncionarioTest.class, ProdutoTest.class, EnderecoTest.class, ClienteTest.class,
 		TelefoneTest.class, AuditoriaTest.class, CidadeTest.class, EstadoTest.class, PaisTest.class })

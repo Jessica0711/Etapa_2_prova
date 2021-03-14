@@ -35,21 +35,13 @@ import br.com.contmatic.model.produto.Produto;
 import br.com.contmatic.model.telefone.Telefone;
 import br.com.six2six.fixturefactory.Fixture;
 
-/**
- * The Class EmpresaTest.
- */
 @FixMethodOrder(NAME_ASCENDING)
 public class EmpresaTest {
 
-	/** The empresa. */
 	private Empresa empresa;
 
-	/** The validator. */
 	private static Validator validator;
 
-	/**
-	 * Set up before class.
-	 */
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		loadTemplates("br.com.contmatic.model.template");
@@ -57,17 +49,11 @@ public class EmpresaTest {
 		validator = factory.getValidator();
 	}
 
-	/**
-	 * Set up.
-	 */
 	@Before
 	public void setUp() {
 		empresa = from(Empresa.class).gimme("valid");
 	}
 
-	/**
-	 * Deve retornar verdadeiro para uma empresa nao nulo.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_para_uma_empresa_nao_nulo() {
 		assertNotNull(empresa.getNome());
@@ -79,9 +65,6 @@ public class EmpresaTest {
 		assertNotNull(empresa.getProdutos());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com o enviado no set.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(empresa.getNome(), either(containsString("Contmatic")).or(containsString("Softmatic")));
@@ -90,74 +73,44 @@ public class EmpresaTest {
 				either(containsString("http://teste.com.br")).or(containsString("http://empresa.com.br")));
 	}
 
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com funcionario igual do
-	 * enviado no set.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_funcionario_igual_do_enviado_no_set() {
 		assertTrue(empresa.getFuncionarios().equals(empresa.getFuncionarios()));
 	}
 
-	/**
-	 * Deve retornar falso na comparacao do get com funcionario diferente do enviado
-	 * no set.
-	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_funcionario_diferente_do_enviado_no_set() {
 		assertFalse(empresa.getFuncionarios().equals(empresa.getProdutos()));
 	}
 
-	/**
-	 * Deve retornar verdadeiro na comparacao do get com produto igual do enviado no
-	 * set.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_produto_igual_do_enviado_no_set() {
 		assertTrue(empresa.getProdutos().equals(empresa.getProdutos()));
 	}
 
-	/**
-	 * Deve retornar falso na comparacao do get com produto diferente do enviado no
-	 * set.
-	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_do_get_com_produto_diferente_do_enviado_no_set() {
 		assertFalse(empresa.getProdutos().equals(empresa.getFuncionarios()));
 	}
 
-	/**
-	 * Deve retornar verdadeiro na comparacao de dois hascodes iguais.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_comparacao_de_dois_hascodes_iguais() {
 		Empresa outraEmpresa = empresa;
 		assertEquals(empresa.hashCode(), outraEmpresa.hashCode());
 	}
 
-	/**
-	 * Deve retornar falso na comparacao de dois hascodes diferentes.
-	 */
 	@Test
 	public void deve_retornar_falso_na_comparacao_de_dois_hascodes_diferentes() {
 		Empresa outraEmpresa = new Empresa("Empresa 01", "46.166.672/0001-72");
 		assertFalse(empresa.hashCode() == outraEmpresa.hashCode());
 	}
 
-	/**
-	 * Deve retornar verdadeiro quando comparado dois objetos iguais atraves do
-	 * equals.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_comparado_dois_objetos_iguais_atraves_do_equals() {
 		Empresa outraEmpresa = empresa;
 		assertTrue(empresa.equals(outraEmpresa));
 	}
 
-	/**
-	 * Deve retornar falso quando comparado dois objetos diferentes da mesma classe
-	 * atraves do equals.
-	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_dois_objetos_diferentes_da_mesma_classe_atraves_do_equals() {
 		Empresa outraEmpresa = Fixture.from(Empresa.class).gimme("valid");
@@ -165,54 +118,33 @@ public class EmpresaTest {
 		assertFalse(empresa.equals(outraEmpresa));
 	}
 
-	/**
-	 * Deve retornar falso quando comparado empresa a um objeto nulo atraves do
-	 * equals.
-	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_empresa_a_um_objeto_nulo_atraves_do_equals() {
 		Empresa outraEmpresa = null;
 		assertFalse(empresa.equals(outraEmpresa));
 	}
 
-	/**
-	 * Deve retornar falso quando comparado dois objetos de classes diferentes
-	 * atraves do equals.
-	 */
 	@Test
 	public void deve_retornar_falso_quando_comparado_dois_objetos_de_classes_diferentes_atraves_do_equals() {
 		assertFalse(empresa.equals(new Object()));
 	}
 
-	/**
-	 * Deve retornar verdadeiro quando comparado um objeto a ele mesmo atraves do
-	 * equals.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_comparado_um_objeto_a_ele_mesmo_atraves_do_equals() {
 		assertTrue(empresa.equals(empresa));
 	}
 
-	/**
-	 * Deve retornar falso quando comparado empresa a nulo atraves do equals.
-	 */
 	@Test(timeout = 100)
 	public void deve_retornar_falso_quando_comparado_empresa_a_nulo_atraves_do_equals() {
 		assertFalse(empresa.equals(null));
 	}
 
-	/**
-	 * Deve retornar verdadeiro quando todos os campos de empresa sao validos.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_quando_todos_os_campos_de_empresa_sao_validos() {
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(0, constraintViolations.size());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando funcionarios e nulo.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_funcionarios_e_nulo() {
 		empresa.setFuncionarios(null);
@@ -221,9 +153,6 @@ public class EmpresaTest {
 		assertEquals("Funcionários da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando produtos e nulo.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_produtos_e_nulo() {
 		empresa.setProdutos(null);
@@ -232,9 +161,6 @@ public class EmpresaTest {
 		assertEquals("Produtos da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando tiver numero no nome.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_tiver_numero_no_nome() {
 		empresa.setNome("9sg1çm85");
@@ -243,21 +169,15 @@ public class EmpresaTest {
 		assertEquals("Caractere inválido no nome da empresa", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando nome for maior que o
-	 * limite.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_nome_for_maior_que_o_limite() {
 		empresa.setNome(RandomStringUtils.randomAlphabetic(81));
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome da empresa deve ter no máximo 80 caracteres", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome da empresa deve ter no máximo 80 caracteres",
+				constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando tiver letra no cnpj.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_tiver_letra_no_cnpj() {
 		empresa.setCnpj("9sg1çm85");
@@ -266,9 +186,6 @@ public class EmpresaTest {
 		assertEquals("CNPJ da empresa inválido", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando o cnpj for nulo.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_o_cnpj_for_nulo() {
 		empresa.setCnpj(null);
@@ -277,9 +194,6 @@ public class EmpresaTest {
 		assertEquals("CNPJ da empresa não pode ser nulo", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erro quando inserido um cnpj invalido.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_inserido_um_cnpj_invalido() {
 		empresa.setCnpj("12.345.678/9012-34");
@@ -288,9 +202,6 @@ public class EmpresaTest {
 		assertEquals("CNPJ da empresa inválido", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o endereco for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_endereco_for_vazio() {
 		Set<Endereco> endereco = new HashSet<>();
@@ -300,10 +211,6 @@ public class EmpresaTest {
 		assertEquals(10, constraintViolations.size());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando inserido mais de um
-	 * endereco.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_endereco() {
 		Set<Endereco> endereco = new HashSet<>();
@@ -313,12 +220,10 @@ public class EmpresaTest {
 		empresa.setEnderecos(endereco);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco da empresa", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um endereco da empresa",
+				constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o telefone for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_telefone_for_vazio() {
 		Set<Telefone> tel = new HashSet<>();
@@ -328,10 +233,6 @@ public class EmpresaTest {
 		assertEquals(9, constraintViolations.size());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando inserido mais de um
-	 * telefone.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_telefone() {
 		Set<Telefone> telefone = new HashSet<>();
@@ -341,12 +242,10 @@ public class EmpresaTest {
 		empresa.setTelefones(telefone);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um telefone da empresa", constraintViolations.iterator().next().getMessage());
+		assertEquals("Somente pode possuir um telefone da empresa",
+				constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o site for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_site_for_vazio() {
 		empresa.setSite(" ");
@@ -355,10 +254,6 @@ public class EmpresaTest {
 		assertEquals("Site da empresa inválida", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o site nao estiver na
-	 * formatacao correta.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_site_nao_estiver_na_formatacao_correta() {
 		empresa.setSite("google.com");
@@ -367,9 +262,6 @@ public class EmpresaTest {
 		assertEquals("Site da empresa inválida", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o funcionario for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_funcionario_for_vazio() {
 		List<Funcionario> func = new ArrayList<>();
@@ -379,9 +271,6 @@ public class EmpresaTest {
 		assertEquals(11, constraintViolations.size());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando o funcionario for nulo.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_funcionario_for_nulo() {
 		empresa.setFuncionarios(null);
@@ -390,9 +279,6 @@ public class EmpresaTest {
 		assertEquals("Funcionários da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando produto for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_produto_for_vazio() {
 		List<Produto> prod = new ArrayList<>();
@@ -402,9 +288,6 @@ public class EmpresaTest {
 		assertEquals(9, constraintViolations.size());
 	}
 
-	/**
-	 * Deve retornar verdadeiro na captura de erros quando produto for vazio.
-	 */
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_produto_for_nulo() {
 		empresa.setProdutos(null);
@@ -413,17 +296,11 @@ public class EmpresaTest {
 		assertEquals("Produtos da empresa não pode ser vazio", constraintViolations.iterator().next().getMessage());
 	}
 
-	/**
-	 * Tear down.
-	 */
 	@After
 	public void tearDown() {
 		empresa = null;
 	}
 
-	/**
-	 * Tear down after class.
-	 */
 	@AfterClass
 	public static void tearDownAfterClass() {
 		System.out.println("Finalizado os teste para a classe Empresa");
