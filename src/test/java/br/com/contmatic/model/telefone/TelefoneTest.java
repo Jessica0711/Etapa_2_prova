@@ -1,5 +1,9 @@
 package br.com.contmatic.model.telefone;
 
+import static br.com.contmatic.model.telefone.DDD.DDD11;
+import static br.com.contmatic.model.telefone.TipoTelefone.CELULAR;
+import static br.com.six2six.fixturefactory.Fixture.from;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
@@ -12,7 +16,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -22,7 +25,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.six2six.fixturefactory.Fixture;
 import br.com.six2six.fixturefactory.loader.FixtureFactoryLoader;
 
 public class TelefoneTest {
@@ -34,7 +36,7 @@ public class TelefoneTest {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		ValidatorFactory factory = buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
@@ -45,7 +47,7 @@ public class TelefoneTest {
 
 	@Before
 	public void setUp() {
-		telefone = Fixture.from(Telefone.class).gimme("valid");
+		telefone = from(Telefone.class).gimme("valid");
 	}
 
 	@After
@@ -65,7 +67,7 @@ public class TelefoneTest {
 	public void deve_retornar_verdadeiro_na_comparacao_do_get_com_o_enviado_no_set() {
 		assertThat(telefone.getNumero(),
 				either(containsString("947268218")).or(containsString("24874321")).or(containsString("974524542")));
-		DDD ddd = DDD.DDD11;
+		DDD ddd = DDD11;
 		telefone.setDdd(ddd);
 		assertThat(telefone.getDdd().getRegiao(), is("Região Metropolitana de São Paulo"));
 		assertThat(telefone.getTipo().getDescricao(), either(containsString("celular")).or(containsString("fixo")));
@@ -75,8 +77,8 @@ public class TelefoneTest {
 
 	@Test
 	public void deve_retornar_falso_na_comparacao_de_dois_hascodes_diferentes() {
-		Telefone outroTelefone = Fixture.from(Telefone.class).gimme("valid");
-		telefone.setTipo(TipoTelefone.CELULAR);
+		Telefone outroTelefone = from(Telefone.class).gimme("valid");
+		telefone.setTipo(CELULAR);
 		telefone.setNumero("947821648");
 		assertFalse(telefone.hashCode() == outroTelefone.hashCode());
 	}
@@ -95,8 +97,8 @@ public class TelefoneTest {
 
 	@Test
 	public void deve_retornar_falso_na_comparacao_de_dois_telefones_diferentes_com_equals() {
-		Telefone outroTelefone = Fixture.from(Telefone.class).gimme("valid");
-		telefone.setTipo(TipoTelefone.CELULAR);
+		Telefone outroTelefone = from(Telefone.class).gimme("valid");
+		telefone.setTipo(CELULAR);
 		telefone.setNumero("999964434");
 		assertFalse(telefone.equals(outroTelefone));
 	}

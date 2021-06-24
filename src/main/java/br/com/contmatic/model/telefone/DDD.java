@@ -1,7 +1,8 @@
 package br.com.contmatic.model.telefone;
 
+import static org.apache.commons.lang3.builder.ToStringStyle.NO_CLASS_NAME_STYLE;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 public enum DDD {
 
@@ -157,6 +158,6 @@ public enum DDD {
 
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return ToStringBuilder.reflectionToString(this, NO_CLASS_NAME_STYLE);
 	}
 }

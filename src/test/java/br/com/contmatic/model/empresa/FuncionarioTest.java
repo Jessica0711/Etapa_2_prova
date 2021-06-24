@@ -235,38 +235,12 @@ public class FuncionarioTest {
 	}
 
 	@Test
-	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_telefone() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		funcionario.setTelefones(telefone);
-		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
-		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente é permitido um telefone do funcionário",
-				constraintViolations.iterator().next().getMessage());
-	}
-
-	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_endereco_for_vazio() {
 		Set<Endereco> endereco = new HashSet<>();
 		endereco.add(new Endereco());
 		funcionario.setEnderecos(endereco);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
 		assertEquals(10, constraintViolations.size());
-	}
-
-	@Test
-	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_endereco() {
-		Set<Endereco> endereco = new HashSet<>();
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		funcionario.setEnderecos(endereco);
-		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(funcionario);
-		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco do funcionário",
-				constraintViolations.iterator().next().getMessage());
 	}
 
 	@After

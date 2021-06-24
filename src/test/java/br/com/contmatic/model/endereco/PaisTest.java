@@ -3,6 +3,7 @@ package br.com.contmatic.model.endereco;
 import static br.com.six2six.fixturefactory.Fixture.from;
 import static br.com.six2six.fixturefactory.loader.FixtureFactoryLoader.loadTemplates;
 import static javax.validation.Validation.buildDefaultValidatorFactory;
+import static org.apache.commons.lang.RandomStringUtils.randomAlphabetic;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.junit.Assert.assertEquals;
@@ -17,7 +18,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -27,7 +27,7 @@ import org.junit.Test;
 public class PaisTest {
 
 	private Pais pais;
-	
+
 	private static Validator validator;
 
 	@BeforeClass
@@ -59,7 +59,8 @@ public class PaisTest {
 
 	@Test
 	public void should_return_true_to_correct_input() {
-		assertThat(this.pais.getNome(), either(containsString("Brasil")).or(containsString("México")).or(containsString("Itália")));
+		assertThat(this.pais.getNome(),
+				either(containsString("Brasil")).or(containsString("México")).or(containsString("Itália")));
 	}
 
 	@Test
@@ -101,7 +102,7 @@ public class PaisTest {
 	public void should_return_true_when_equals_compare_class_with_same_object() {
 		assertTrue(this.pais.equals(this.pais));
 	}
-	
+
 	@Test
 	public void deve_retornar_verdadeiro_quando_todos_os_campos_de_cidade_sao_validos() {
 		Set<ConstraintViolation<Pais>> constraintViolations = validator.validate(this.pais);
@@ -126,10 +127,11 @@ public class PaisTest {
 
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_nome_for_maior_que_o_limite() {
-		this.pais.setNome(RandomStringUtils.randomAlphabetic(81));
+		this.pais.setNome(randomAlphabetic(81));
 		Set<ConstraintViolation<Pais>> constraintViolations = validator.validate(this.pais);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Nome do país deve ter no máximo 80 caratceres", constraintViolations.iterator().next().getMessage());
+		assertEquals("Nome do país deve ter no máximo 80 caratceres",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 }

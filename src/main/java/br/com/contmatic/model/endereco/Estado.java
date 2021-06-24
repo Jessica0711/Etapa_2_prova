@@ -3,11 +3,10 @@ package br.com.contmatic.model.endereco;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+import static org.apache.commons.lang3.builder.ToStringStyle.NO_CLASS_NAME_STYLE;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 
@@ -56,6 +55,6 @@ public class Estado extends Auditoria {
 
 	@Override
 	public String toString() {
-		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, NO_CLASS_NAME_STYLE);
 	}
 }

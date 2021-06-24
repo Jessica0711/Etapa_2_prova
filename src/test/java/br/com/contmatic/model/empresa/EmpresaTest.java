@@ -212,38 +212,12 @@ public class EmpresaTest {
 	}
 
 	@Test
-	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_endereco() {
-		Set<Endereco> endereco = new HashSet<>();
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		endereco.add(Fixture.from(Endereco.class).gimme("valid"));
-		empresa.setEnderecos(endereco);
-		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um endereco da empresa",
-				constraintViolations.iterator().next().getMessage());
-	}
-
-	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_o_telefone_for_vazio() {
 		Set<Telefone> tel = new HashSet<>();
 		tel.add(new Telefone());
 		empresa.setTelefones(tel);
 		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
 		assertEquals(9, constraintViolations.size());
-	}
-
-	@Test
-	public void deve_retornar_verdadeiro_na_captura_de_erros_quando_inserido_mais_de_um_telefone() {
-		Set<Telefone> telefone = new HashSet<>();
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		telefone.add(Fixture.from(Telefone.class).gimme("valid"));
-		empresa.setTelefones(telefone);
-		Set<ConstraintViolation<Empresa>> constraintViolations = validator.validate(empresa);
-		assertEquals(1, constraintViolations.size());
-		assertEquals("Somente pode possuir um telefone da empresa",
-				constraintViolations.iterator().next().getMessage());
 	}
 
 	@Test

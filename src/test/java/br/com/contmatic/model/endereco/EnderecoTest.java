@@ -15,7 +15,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.apache.commons.lang.RandomStringUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -156,10 +155,11 @@ public class EnderecoTest {
 
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_bairro_tiver_mais_de_40_caracteres() {
-		endereco.setBairro(RandomStringUtils.randomAlphabetic(41));
+		endereco.setBairro(randomAlphabetic(81));
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Bairro do endereço com tamanho fora do permitido", constraintViolations.iterator().next().getMessage());
+		assertEquals("Bairro do endereço deve ter no máximo 80 caracteres\"",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	@Test
@@ -169,7 +169,7 @@ public class EnderecoTest {
 		assertEquals(1, constraintViolations.size());
 		assertEquals("CEP do endereço deve ser preenchido", constraintViolations.iterator().next().getMessage());
 	}
-	
+
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_cidade_for_nulo() {
 		endereco.setCidade(null);
@@ -191,7 +191,8 @@ public class EnderecoTest {
 		endereco.setComplemento("*_*-_-:):(:$;):*(");
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Caractere inválido no complemneto do endereço", constraintViolations.iterator().next().getMessage());
+		assertEquals("Caractere inválido no complemneto do endereço",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 	@Test
@@ -199,7 +200,8 @@ public class EnderecoTest {
 		endereco.setComplemento(randomAlphabetic(81));
 		Set<ConstraintViolation<Endereco>> constraintViolations = validator.validate(endereco);
 		assertEquals(1, constraintViolations.size());
-		assertEquals("Complemento do endereço deve ter no máximo 80 caracteres", constraintViolations.iterator().next().getMessage());
+		assertEquals("Complemento do endereço deve ter no máximo 80 caracteres",
+				constraintViolations.iterator().next().getMessage());
 	}
 
 }

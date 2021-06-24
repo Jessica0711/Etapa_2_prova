@@ -1,5 +1,7 @@
 package br.com.contmatic.model.produto;
 
+import static br.com.six2six.fixturefactory.Fixture.from;
+import static javax.validation.Validation.buildDefaultValidatorFactory;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.either;
 import static org.hamcrest.CoreMatchers.is;
@@ -14,11 +16,9 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -37,13 +37,13 @@ public class ProdutoTest {
 	@BeforeClass
 	public static void setUp_before_class() {
 		FixtureFactoryLoader.loadTemplates("br.com.contmatic.model.template");
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		ValidatorFactory factory = buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
 	@Before
 	public void setUp() {
-		produto = Fixture.from(Produto.class).gimme("valid");
+		produto = from(Produto.class).gimme("valid");
 	}
 
 	@Test
@@ -160,7 +160,7 @@ public class ProdutoTest {
 
 	@Test
 	public void deve_retornar_verdadeiro_na_captura_de_erro_quando_fim_de_producao_for_uma_data_do_passado() {
-		produto.setFimProducao(DateTime.parse("2010-06-07"));
+		produto.setFimProducao(parse("2010-06-07"));
 		Set<ConstraintViolation<Produto>> constraintViolations = validator.validate(produto);
 		assertEquals(1, constraintViolations.size());
 		assertEquals("Fim da produção do produto deve ser uma data futura",

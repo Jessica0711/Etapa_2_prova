@@ -4,13 +4,13 @@ import static br.com.contmatic.util.Regex.SOMENTE_LETRAS;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+import static org.apache.commons.lang3.builder.ToStringStyle.NO_CLASS_NAME_STYLE;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.contmatic.model.auditoria.Auditoria;
@@ -62,7 +62,7 @@ public class Cidade extends Auditoria {
 
 	@Override
 	public String toString() {
-		return reflectionToString(this, ToStringStyle.NO_CLASS_NAME_STYLE);
+		return reflectionToString(this, NO_CLASS_NAME_STYLE);
 	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.contmatic.model.produto;
 
 import static br.com.contmatic.util.Regex.LETRA_NUMERO;
+import static com.google.common.base.Preconditions.checkArgument;
 import static org.apache.commons.lang3.builder.EqualsBuilder.reflectionEquals;
 import static org.apache.commons.lang3.builder.HashCodeBuilder.reflectionHashCode;
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
@@ -17,11 +18,9 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 
-import com.google.common.base.Preconditions;
-
 import br.com.contmatic.model.auditoria.Auditoria;
 
-public class Produto extends Auditoria{
+public class Produto extends Auditoria {
 
 	@NotEmpty(message = "Nome do produto não pode estar vazio")
 	@Size(min = 1, max = 80, message = "Nome do produto deve ter no máximo 80 caracteres")
@@ -55,9 +54,9 @@ public class Produto extends Auditoria{
 	}
 
 	public void setPreco(BigDecimal preco) {
-		Preconditions.checkArgument(true);
+		checkArgument((preco.doubleValue() > 3000) && this.fimProducao == null,
+				"Produtos acima de 3000 reais devem possuir data do fim de produção");
 		this.preco = preco;
-
 	}
 
 	public void setMarca(String marca) {
